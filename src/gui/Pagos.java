@@ -57,22 +57,22 @@ public class Pagos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jRadioButton1);
-        jRadioButton1.setBounds(25, 45, 53, 23);
+        jRadioButton1.setBounds(25, 45, 61, 25);
 
         jRadioButton2.setText("Semanal");
         jPanel2.add(jRadioButton2);
-        jRadioButton2.setBounds(25, 97, 65, 23);
+        jRadioButton2.setBounds(25, 97, 79, 25);
 
         jRadioButton3.setText("Mensual");
         jPanel2.add(jRadioButton3);
-        jRadioButton3.setBounds(25, 202, 65, 23);
+        jRadioButton3.setBounds(25, 202, 75, 25);
 
         jRadioButton4.setText("Quincenal");
         jPanel2.add(jRadioButton4);
-        jRadioButton4.setBounds(25, 152, 73, 23);
+        jRadioButton4.setBounds(25, 152, 85, 25);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 330, 110, 251);
+        jPanel2.setBounds(0, 330, 0, 0);
 
         jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
