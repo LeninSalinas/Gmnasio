@@ -5,18 +5,34 @@
  */
 package gui;
 
+import conexion.Conexion;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author lenin
  */
 public class frmActPeso extends javax.swing.JDialog {
 
-    /**
-     * Creates new form frmActPeso
-     */
+    Conexion conect;
+    Object datosCliente[] = new Object[5];
+    Connection con = null;
+    Statement st = null;
+    Statement st2 = null;
     public frmActPeso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setSize(502, 556);
+        setLocationRelativeTo(null);
+        DatosClientes();
+        
     }
 
     /**
@@ -28,25 +44,137 @@ public class frmActPeso extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        txtPeso = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        cboNombre = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        txtIdMembresia = new javax.swing.JTextField();
+        txtIdNombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        txtPeso.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        getContentPane().add(txtPeso);
+        txtPeso.setBounds(150, 244, 210, 50);
+
+        jButton1.setText("<html><center>Mostrar grafica</center></html>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(90, 380, 330, 60);
+
+        cboNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cboNombre);
+        cboNombre.setBounds(150, 140, 210, 60);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Actualizacion de peso");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(150, 50, 220, 60);
+        getContentPane().add(txtIdMembresia);
+        txtIdMembresia.setBounds(230, 320, 90, 40);
+        getContentPane().add(txtIdNombre);
+        txtIdNombre.setBounds(110, 320, 90, 40);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Escriba su peso actual");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(161, 206, 190, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void cboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNombreActionPerformed
+        // TODO add your handling code here:
+        BuscarNombreCliente();
+    }//GEN-LAST:event_cboNombreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        IngresarPeso();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void DatosClientes() {
+        try {
+            
+            conect = new Conexion("gimnasio");
+            String senten = "SELECT `nombre` FROM `clientes`";
+            String encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+
+            while (rs.next()) {
+                cboNombre.addItem(rs.getString("nombre"));
+                encontrado = "SI";
+            }
+            BuscarNombreCliente();
+                
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        } catch (HeadlessException | SQLException x) {
+            System.out.println(x);
+        }
+    } 
+    private void BuscarNombreCliente() {        
+            try {
+                
+                conect = new Conexion("gimnasio");
+                String senten = "SELECT ID FROM `clientes` WHERE `nombre` LIKE '"+cboNombre.getSelectedItem().toString()+"'";
+                String encontrado = "NO";            
+                con = conect.getConexion();
+                st = con.createStatement();
+                ResultSet rs = st.executeQuery(senten);
+
+                while (rs.next()) {
+                    txtIdNombre.setText(rs.getString("ID"));
+                    encontrado = "SI";
+                }
+                if (encontrado.equals("NO")) {
+                    JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+                }
+                con.close();
+            } catch (HeadlessException | SQLException x) {
+                System.out.println(""+x.getMessage());
+            }
+           
+    }
+    public void IngresarPeso(){
+        if (txtPeso.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Error, debe de llenar el campo", "", JOptionPane.WARNING_MESSAGE);
+        }
+        try {
+            
+                conect = new Conexion("gimnasio");
+                con = conect.getConexion();
+                //COLOQUE EN LA SENTENCIA SQL EL NOMBRE DE SU BD Y LOS NOMBRE DE LOS CAMPOS
+                String sql = "INSERT INTO actualizacion_peso (ID, IDcliente, pesoActual) VALUES (?,?,?)";
+                PreparedStatement ps = conect.getConexion().prepareStatement(sql);
+                //COLOQUE LOS NOMBRES DE SUS CUADROS DE DIALOGO (JTEXTFIELD)
+                   ps.setInt(1, 0);                
+                ps.setInt(2, Integer.parseInt(txtIdNombre.getText()));
+                ps.setInt(3, Integer.parseInt(txtPeso.getText()));   
+                ps.execute();
+                JOptionPane.showMessageDialog(null, "SE A INGRESADO CORRECTAMENTE", "ATENCION!", 1);
+                
+                con.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR "+ e.getMessage(), "ATENCION!", 0);
+            }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -87,5 +215,12 @@ public class frmActPeso extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboNombre;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtIdMembresia;
+    private javax.swing.JTextField txtIdNombre;
+    private javax.swing.JTextField txtPeso;
     // End of variables declaration//GEN-END:variables
 }
