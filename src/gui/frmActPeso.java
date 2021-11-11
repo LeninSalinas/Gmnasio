@@ -7,13 +7,22 @@ package gui;
 
 import conexion.Conexion;
 import java.awt.HeadlessException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -45,7 +54,7 @@ public class frmActPeso extends javax.swing.JDialog {
     private void initComponents() {
 
         txtPeso = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnGrafica = new javax.swing.JButton();
         cboNombre = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txtIdMembresia = new javax.swing.JTextField();
@@ -59,14 +68,14 @@ public class frmActPeso extends javax.swing.JDialog {
         getContentPane().add(txtPeso);
         txtPeso.setBounds(150, 244, 210, 50);
 
-        jButton1.setText("<html><center>Mostrar grafica</center></html>");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGrafica.setText("<html><center>Mostrar grafica</center></html>");
+        btnGrafica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGraficaActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(90, 380, 330, 60);
+        getContentPane().add(btnGrafica);
+        btnGrafica.setBounds(90, 380, 330, 60);
 
         cboNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,10 +109,11 @@ public class frmActPeso extends javax.swing.JDialog {
         BuscarNombreCliente();
     }//GEN-LAST:event_cboNombreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficaActionPerformed
         // TODO add your handling code here:
-        IngresarPeso();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        //IngresarPeso();
+        reportePorNombre();
+    }//GEN-LAST:event_btnGraficaActionPerformed
 
     public void DatosClientes() {
         try {
@@ -175,6 +185,59 @@ public class frmActPeso extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR "+ e.getMessage(), "ATENCION!", 0);
             }
     }
+    public void reporteVe_CliIreport(){
+    try{
+             Conexion conect = new Conexion("gimnasio");
+            con = conect.getConexion();
+            
+            JasperReport repor=null;
+            URL urlMaestro = getClass().getResource("src/gui/EvolucionDePeso.jasper");            
+            repor=(JasperReport) JRLoader.loadObject(urlMaestro);
+            
+            JasperPrint jprint = JasperFillManager.fillReport(repor,null, con);
+            
+            JasperViewer view = new JasperViewer(jprint,true);
+            
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            view.setVisible(true);
+        
+        }catch (JRException e){System.out.print(e);}     
+    }
+    public void reportePorNombre() {
+        //Obtenemos el nombre que lo mandaremos por parámetro al reporte para la búsqueda
+        //String nombre = JOptionPane.showInputDialog("INGRESE EL NOMBRE A BUSCAR");
+        Conexion conect = new Conexion("gimnasio");
+        con = conect.getConexion();
+        try {
+
+            Map parametro = new HashMap();//Variable donde mandamos los parámetros a iReport
+            parametro.put("Nombre", cboNombre.getSelectedItem().toString());//Colocamos e nombre del parametro que creamos en iReport que será la
+                                         //que reciba el parámetro que mandamos desde la aplicaión, y tambien 
+                                         //colocamos el nombre del parámetro que enviamos desde la aplicación
+           
+            //parametro.put("color", color); Si necesitamos enviar otros parámetros usamos la misma variable de tipo Map
+            JasperReport reporte = null;
+
+             //RUTA DEL ARCHIVO
+            URL urlMaestro = getClass().getResource("/gui/EvolucionDePeso.jasper");
+            //LLAMADO DEL ARCHIVO
+            reporte = (JasperReport) JRLoader.loadObject(urlMaestro);
+            //LLENADO DEL REPORTE
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, con);
+            //VISTA DEL REPORTE
+            JasperViewer view = new JasperViewer(jprint, false);
+            //TITULO (OPCIONAL)
+//            view.setTitle("REPORTE DE CLIENTES");
+            //CIERRE DEL REPORTE
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -215,8 +278,8 @@ public class frmActPeso extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGrafica;
     private javax.swing.JComboBox<String> cboNombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtIdMembresia;
