@@ -42,6 +42,8 @@ public class frmActPeso extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         DatosClientes();
         
+        txtIdMembresia.setVisible(false);
+        txtIdNombre.setVisible(false);
     }
 
     /**
@@ -61,6 +63,7 @@ public class frmActPeso extends javax.swing.JDialog {
         txtIdNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnNuevoPeso = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -76,7 +79,7 @@ public class frmActPeso extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnGrafica);
-        btnGrafica.setBounds(110, 370, 330, 60);
+        btnGrafica.setBounds(90, 320, 330, 60);
 
         cboNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +93,7 @@ public class frmActPeso extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Actualizacion de peso");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(150, 50, 220, 60);
+        jLabel1.setBounds(150, 30, 220, 60);
         getContentPane().add(txtIdMembresia);
         txtIdMembresia.setBounds(230, 320, 90, 40);
         getContentPane().add(txtIdNombre);
@@ -109,7 +112,12 @@ public class frmActPeso extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnNuevoPeso);
-        btnNuevoPeso.setBounds(110, 440, 330, 60);
+        btnNuevoPeso.setBounds(90, 390, 330, 60);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Nombre del cliente");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(161, 100, 200, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -280,6 +288,7 @@ public class frmActPeso extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cboNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtIdMembresia;
     private javax.swing.JTextField txtIdNombre;
     private javax.swing.JTextField txtPeso;
