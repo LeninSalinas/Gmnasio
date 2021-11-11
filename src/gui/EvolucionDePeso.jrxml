@@ -18,8 +18,11 @@
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 	</subDataset>
-	<queryString language="SQL">
-		<![CDATA[SELECT clientes.nombre, clientes.peso, actualizacion_peso.pesoActual FROM actualizacion_peso INNER JOIN clientes ON actualizacion_peso.IDcliente=clientes.ID]]>
+	<parameter name="Nombre" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT clientes.nombre, clientes.peso, actualizacion_peso.pesoActual FROM actualizacion_peso INNER JOIN clientes ON actualizacion_peso.IDcliente=clientes.ID WHERE clientes.nombre LIKE $P{Nombre}]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -37,7 +40,7 @@
 		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="128" splitType="Stretch">
 			<textField>
 				<reportElement x="273" y="0" width="140" height="35" uuid="59b81cf3-1a37-4eeb-9a97-d9aa63cca3bd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -64,8 +67,13 @@
 				<categoryDataset>
 					<categorySeries>
 						<seriesExpression><![CDATA[$F{nombre}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{peso}$F{pesoActual}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{peso}$F{pesoActual}]]></valueExpression>
+						<categoryExpression><![CDATA[$F{pesoActual}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{pesoActual}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{peso}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{peso}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
 				<linePlot>
