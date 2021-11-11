@@ -5,6 +5,11 @@
  */
 package gui;
 
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import conexion.Conexion;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author RAY
@@ -17,8 +22,16 @@ public class Pagos extends javax.swing.JDialog {
     public Pagos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        BuscarCliente();
     }
+    
+    DefaultTableModel modelo;
+Object datosCliente[] = new Object[3];
+String encontrado;
 
+Conexion conect = new Conexion("gimnasio");
+Connection con = null;
+Statement st = null;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +43,15 @@ public class Pagos extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtblDatos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(892, 606));
@@ -46,6 +61,28 @@ public class Pagos extends javax.swing.JDialog {
         jPanel1.setMaximumSize(new java.awt.Dimension(892, 606));
         jPanel1.setMinimumSize(new java.awt.Dimension(892, 606));
         jPanel1.setLayout(null);
+
+        jtblDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
+        jtblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Genero"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtblDatos);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(232, 330, 636, 270);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Tipo de Pago"));
         jPanel2.setLayout(null);
@@ -57,44 +94,30 @@ public class Pagos extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jRadioButton1);
-        jRadioButton1.setBounds(25, 45, 61, 25);
+        jRadioButton1.setBounds(25, 45, 53, 23);
 
         jRadioButton2.setText("Semanal");
         jPanel2.add(jRadioButton2);
-        jRadioButton2.setBounds(25, 97, 79, 25);
+        jRadioButton2.setBounds(25, 97, 65, 23);
 
         jRadioButton3.setText("Mensual");
         jPanel2.add(jRadioButton3);
-        jRadioButton3.setBounds(25, 202, 75, 25);
+        jRadioButton3.setBounds(25, 202, 65, 23);
 
         jRadioButton4.setText("Quincenal");
         jPanel2.add(jRadioButton4);
-        jRadioButton4.setBounds(25, 152, 85, 25);
+        jRadioButton4.setBounds(25, 152, 73, 23);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 330, 0, 0);
+        jPanel2.setBounds(0, 330, 200, 270);
 
-        jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jButton1.setText("Volver");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(560, 250, 120, 50);
 
-            },
-            new String [] {
-                "ID", "Nombre", "Telefono"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(232, 330, 636, 243);
+        jButton2.setText("Pagar");
+        jPanel1.add(jButton2);
+        jButton2.setBounds(700, 250, 120, 50);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 892, 606);
@@ -106,6 +129,33 @@ public class Pagos extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
+    private void BuscarCliente() {
+        try {
+            String senten = "SELECT * FROM clientes WHERE estado LIKE 'Activo'";
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+            modelo = (DefaultTableModel) jtblDatos.getModel(); //tblDatos es el nombre del JTable
+
+            while (rs.next()) {
+                datosCliente[0] = (rs.getInt("id"));
+                datosCliente[1] = (rs.getString("nombre"));
+                datosCliente[2] = (rs.getString("genero"));
+                
+                modelo.addRow(datosCliente);
+                encontrado = "SI";
+                //limpiar();
+            }
+
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            jtblDatos.setModel(modelo);
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -150,6 +200,8 @@ public class Pagos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
@@ -157,6 +209,6 @@ public class Pagos extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtblDatos;
     // End of variables declaration//GEN-END:variables
 }
