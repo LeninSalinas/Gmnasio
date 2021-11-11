@@ -60,6 +60,7 @@ public class frmActPeso extends javax.swing.JDialog {
         txtIdMembresia = new javax.swing.JTextField();
         txtIdNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnNuevoPeso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -75,7 +76,7 @@ public class frmActPeso extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnGrafica);
-        btnGrafica.setBounds(90, 380, 330, 60);
+        btnGrafica.setBounds(110, 370, 330, 60);
 
         cboNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +102,15 @@ public class frmActPeso extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(161, 206, 190, 50);
 
+        btnNuevoPeso.setText("<html><center>Ingresar nuevo peso</center></html>");
+        btnNuevoPeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoPesoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNuevoPeso);
+        btnNuevoPeso.setBounds(110, 440, 330, 60);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -114,6 +124,11 @@ public class frmActPeso extends javax.swing.JDialog {
         //IngresarPeso();
         reportePorNombre();
     }//GEN-LAST:event_btnGraficaActionPerformed
+
+    private void btnNuevoPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPesoActionPerformed
+        // TODO add your handling code here:\
+        IngresarPeso();
+    }//GEN-LAST:event_btnNuevoPesoActionPerformed
 
     public void DatosClientes() {
         try {
@@ -185,25 +200,7 @@ public class frmActPeso extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR "+ e.getMessage(), "ATENCION!", 0);
             }
     }
-    public void reporteVe_CliIreport(){
-    try{
-             Conexion conect = new Conexion("gimnasio");
-            con = conect.getConexion();
-            
-            JasperReport repor=null;
-            URL urlMaestro = getClass().getResource("EvolucionDePeso.jasper");            
-            repor=(JasperReport) JRLoader.loadObject(urlMaestro);
-            
-            JasperPrint jprint = JasperFillManager.fillReport(repor,null, con);
-            
-            JasperViewer view = new JasperViewer(jprint,false);
-            
-            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            
-            view.setVisible(true);
-        
-        }catch (JRException e){System.out.print(e);}     
-    }
+    
     public void reportePorNombre() {
         //Obtenemos el nombre que lo mandaremos por parámetro al reporte para la búsqueda
         //String nombre = JOptionPane.showInputDialog("INGRESE EL NOMBRE A BUSCAR");
@@ -279,6 +276,7 @@ public class frmActPeso extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGrafica;
+    private javax.swing.JButton btnNuevoPeso;
     private javax.swing.JComboBox<String> cboNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
