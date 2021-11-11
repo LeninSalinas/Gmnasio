@@ -1,7 +1,7 @@
 package GUI;
 
 
-import Conexion.Conexion;
+import conexion.Conexion;
 import java.awt.HeadlessException;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -13,6 +13,8 @@ public class Membresias extends javax.swing.JDialog {
     public Membresias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setSize(683, 510);
+        setLocationRelativeTo(null);
     }
     //VARIABLES GLOBALES
     Conexion conect = new Conexion("gimnasio");
@@ -28,7 +30,6 @@ public class Membresias extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,8 +71,6 @@ public class Membresias extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabMiembros = new javax.swing.JTable();
         botBorrar = new javax.swing.JButton();
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/background_gymjpg.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -296,7 +295,7 @@ public void actualizarMembresia(){
                 PreparedStatement ps;
 
 		//COLOQUE EL NOMBRE DE SU TABLA Y EL NOMBRE DE SUS CAMPOS
-         //  aqui hay que modificar estado???    String sql = "UPDATE miembros SET nombre=?, precio=?, matricula=?, telefono=?, pendiente=? WHERE ID =?";
+                String sql = "UPDATE miembros SET nombre=?, precio=?, matricula=?, telefono=?, pendiente=? WHERE ID =?";
                 ps = conect.getConexion().prepareStatement(sql);
                 ps.setString(1, jtfMiembro.getText());
                 ps.setString(2, jtfPrecio.getText());
@@ -324,7 +323,7 @@ public void actualizarMembresia(){
             JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CORRECTAMENTE", "ATENCION!", 1);
             con.close();
             limpiar();
-            limpiarTabla();
+            //limpiarTabla();
             BuscarMembresia();
             
         } catch (HeadlessException | SQLException e) {
@@ -398,7 +397,6 @@ public void actualizarMembresia(){
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

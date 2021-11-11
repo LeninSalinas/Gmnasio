@@ -191,12 +191,12 @@ public class frmActPeso extends javax.swing.JDialog {
             con = conect.getConexion();
             
             JasperReport repor=null;
-            URL urlMaestro = getClass().getResource("src/gui/EvolucionDePeso.jasper");            
+            URL urlMaestro = getClass().getResource("EvolucionDePeso.jasper");            
             repor=(JasperReport) JRLoader.loadObject(urlMaestro);
             
             JasperPrint jprint = JasperFillManager.fillReport(repor,null, con);
             
-            JasperViewer view = new JasperViewer(jprint,true);
+            JasperViewer view = new JasperViewer(jprint,false);
             
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             
