@@ -46,10 +46,7 @@ Statement st = null;
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblDatos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -87,26 +84,10 @@ Statement st = null;
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Tipo de Pago"));
         jPanel2.setLayout(null);
 
-        jRadioButton1.setText("Diaria");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jRadioButton1);
-        jRadioButton1.setBounds(25, 45, 53, 23);
-
-        jRadioButton2.setText("Semanal");
-        jPanel2.add(jRadioButton2);
-        jRadioButton2.setBounds(25, 97, 65, 23);
-
-        jRadioButton3.setText("Mensual");
-        jPanel2.add(jRadioButton3);
-        jRadioButton3.setBounds(25, 202, 65, 23);
-
-        jRadioButton4.setText("Quincenal");
-        jPanel2.add(jRadioButton4);
-        jRadioButton4.setBounds(25, 152, 73, 23);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
+        jPanel2.add(jComboBox1);
+        jComboBox1.setBounds(30, 30, 140, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 330, 200, 270);
@@ -124,10 +105,6 @@ Statement st = null;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void BuscarCliente() {
         try {
@@ -202,12 +179,9 @@ Statement st = null;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtblDatos;
     // End of variables declaration//GEN-END:variables
