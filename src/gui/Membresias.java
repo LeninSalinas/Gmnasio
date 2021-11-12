@@ -15,7 +15,9 @@ public class Membresias extends javax.swing.JDialog {
         initComponents();
         setSize(683, 510);
         setLocationRelativeTo(null);
+        jtfID.setText(String.valueOf(buscarID()));
     }
+    
     //VARIABLES GLOBALES
     Conexion conect = new Conexion("gimnasio");
     Connection con = null;
@@ -32,39 +34,17 @@ public class Membresias extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jtfID = new javax.swing.JTextField();
-        jtfMiembro = new javax.swing.JTextField();
-        jtfPrecio = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jtfPendiente = new javax.swing.JTextField();
-        jtfID1 = new javax.swing.JTextField();
-        jtfMiembro1 = new javax.swing.JTextField();
-        jtfPrecio1 = new javax.swing.JTextField();
+        jtfID = new javax.swing.JTextField();
+        jtfTipo = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jtfMatricula = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jffTelefono = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtfPrecio = new javax.swing.JTextField();
         botVolver = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         botCrear = new javax.swing.JButton();
         botListar = new javax.swing.JButton();
         botCambiar = new javax.swing.JButton();
@@ -81,20 +61,9 @@ public class Membresias extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setText("ID ");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 20));
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel3.setText("MIEMBRO");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
-
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setText("PRECIO");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 70, 20));
-        jPanel3.add(jtfID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 112, 32));
-        jPanel3.add(jtfMiembro, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 116, 112, 32));
-        jPanel3.add(jtfPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 112, 32));
 
         jPanel5.setBackground(new java.awt.Color(204, 255, 204));
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -104,37 +73,23 @@ public class Membresias extends javax.swing.JDialog {
         jLabel13.setText("ID ");
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 20));
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setText("MIEMBRO");
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
-
         jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel15.setText("PRECIO");
         jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 70, 20));
 
-        jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel16.setText("PENDIENTE");
-        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 90, 20));
-        jPanel5.add(jtfPendiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 110, 32));
-        jPanel5.add(jtfID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 112, 32));
-        jPanel5.add(jtfMiembro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 116, 112, 32));
-        jPanel5.add(jtfPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 112, 32));
+        jtfID.setEditable(false);
+        jPanel5.add(jtfID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 112, 32));
+        jPanel5.add(jtfTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 116, 112, 32));
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel17.setText("MATRICULA");
-        jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 100, 20));
-        jPanel5.add(jtfMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 112, 32));
+        jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 100, 20));
+        jPanel5.add(jtfMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 112, 32));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("TELEFONO");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 100, 20));
-
-        try {
-            jffTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel5.add(jffTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 110, 30));
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setText("TIPO");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
+        jPanel5.add(jtfPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 112, 32));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 490));
 
@@ -143,61 +98,41 @@ public class Membresias extends javax.swing.JDialog {
         botVolver.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         botVolver.setText("VOLVER");
         botVolver.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
+        botVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(botVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 100, 50));
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel8.setText("ID ");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 20));
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel9.setText("MIEMBRO");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel10.setText("PRECIO");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 70, 20));
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel11.setText("PEDIENTE");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 80, 20));
-        jPanel4.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 110, 32));
-        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 112, 32));
-        jPanel4.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 116, 112, 32));
-        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 112, 32));
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setText("MATRICULA");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 100, 20));
-        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 112, 32));
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 490));
-
-        jButton2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jButton2.setText("CREAR");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 100, 50));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, -1));
 
         botCrear.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         botCrear.setText("CREAR");
         botCrear.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
+        botCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botCrearActionPerformed(evt);
+            }
+        });
         jPanel1.add(botCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 100, 50));
 
         botListar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         botListar.setText("LISTAR");
         botListar.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
+        botListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botListarActionPerformed(evt);
+            }
+        });
         jPanel1.add(botListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 100, 50));
 
         botCambiar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         botCambiar.setText("CAMBIAR");
         botCambiar.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
+        botCambiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botCambiarActionPerformed(evt);
+            }
+        });
         jPanel1.add(botCambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 100, 50));
 
         tabMiembros.setModel(new javax.swing.table.DefaultTableModel(
@@ -205,11 +140,11 @@ public class Membresias extends javax.swing.JDialog {
 
             },
             new String [] {
-                "         ID", "         MIEMBRO", "         PRECIO"
+                "         ID", "         TIPO", "         PRECIO", "     MATRICULA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -218,11 +153,16 @@ public class Membresias extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tabMiembros);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 430, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 430, 240));
 
         botBorrar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         botBorrar.setText("BORRAR");
         botBorrar.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(153, 255, 255)));
+        botBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botBorrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(botBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 100, 50));
 
         getContentPane().add(jPanel1);
@@ -230,23 +170,48 @@ public class Membresias extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-//CREAR CLIENTES Y LOS GUARDA EN LA BD, LLAME A ESTE METODO EN EL BOTON CREAR
+
+    private void botCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCrearActionPerformed
+        crearMembresia();
+        limpiarTabla();
+        limpiar();
+        buscarMembresia();
+        
+    }//GEN-LAST:event_botCrearActionPerformed
+
+    private void botListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botListarActionPerformed
+        limpiarTabla();
+        buscarMembresia();
+    }//GEN-LAST:event_botListarActionPerformed
+
+    private void botCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCambiarActionPerformed
+        actualizarMembresia();
+        limpiar();
+    }//GEN-LAST:event_botCambiarActionPerformed
+
+    private void botBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBorrarActionPerformed
+        eliminarMembresia();
+        limpiarTabla();
+        limpiar();
+        buscarMembresia();
+    }//GEN-LAST:event_botBorrarActionPerformed
+
+    private void botVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botVolverActionPerformed
+
     public void crearMembresia() {
         try {
             con = conect.getConexion();
             //COLOQUE EN LA SENTENCIA SQL EL NOMBRE DE SU BD Y LOS NOMBRE DE LOS CAMPOS
-            String sql = "INSERT INTO membresia (ID,nombre,precio,matricula,telefono,pendiente,estado) VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO membresia (ID,tipo,precio,matricula,estado) VALUES (?,?,?,?,?)";
             PreparedStatement ps = conect.getConexion().prepareStatement(sql);
             //COLOQUE LOS NOMBRES DE SUS CUADROS DE DIALOGO (JTEXTFIELD)
             ps.setInt(1, 0);
-            ps.setString(2, jtfMiembro.getText());
+            ps.setString(2, jtfTipo.getText());
             ps.setString(3, jtfPrecio.getText());
             ps.setString(4, jtfMatricula.getText());
-            ps.setString(5, jffTelefono.getText());
-            ps.setString(6, jtfPendiente.getText());
-            ps.setString(7, "Activo");           
+            ps.setString(5, "Activo");           
             ps.execute();
             JOptionPane.showMessageDialog(null, "REGISTRO INGRESADO CORRECTAMENTE", "ATENCION!", 1);
             limpiar();
@@ -256,7 +221,7 @@ public class Membresias extends javax.swing.JDialog {
         }
     }
     
-private void BuscarMembresia() {
+private void buscarMembresia() {
         try {
             String senten = "SELECT * FROM miembros WHERE estado LIKE 'Activo'";
             encontrado = "NO";            
@@ -267,17 +232,13 @@ private void BuscarMembresia() {
 
             while (rs.next()) {
                  Miembro[0] = (rs.getInt("ID"));
-                 Miembro[1] = (rs.getString("nombre"));
+                 Miembro[1] = (rs.getString("tipo"));
                  Miembro[2] = (rs.getString("precio"));
                  Miembro[3] = (rs.getString("matricula"));
-                 Miembro[4] = (rs.getString("telefono"));
-                 Miembro[5] = (rs.getString("pendiente"));
-                 Miembro[6] = (rs.getString("estado"));
                 modelo.addRow(Miembro);
                 encontrado = "SI";
                 limpiar();
             }
-
             if (encontrado.equals("NO")) {
                 JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
             }
@@ -286,22 +247,39 @@ private void BuscarMembresia() {
         } catch (HeadlessException | SQLException x) {}
     }
 
+    int codigo;
+    public int buscarID() {
+        try {
+            String senten = "SELECT COUNT(ID) FROM membresia";
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+             rs.next(); 
+                codigo = rs.getInt("COUNT(ID)");
+                encontrado = "SI";
+                
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        } catch (HeadlessException | SQLException x) {}
+        return codigo+1;
+    }
+    
 public void actualizarMembresia(){        
             try {
-		//COLOQUE EL NOMBRE DE SU BD
                 Conexion conect = new Conexion("gimnasio");
                 con = conect.getConexion();
                 st = con.createStatement();
                 PreparedStatement ps;
 
 		//COLOQUE EL NOMBRE DE SU TABLA Y EL NOMBRE DE SUS CAMPOS
-                String sql = "UPDATE miembros SET nombre=?, precio=?, matricula=?, telefono=?, pendiente=? WHERE ID =?";
+                String sql = "UPDATE miembros SET tipo=?, precio=?, matricula=? WHERE ID =?";
                 ps = conect.getConexion().prepareStatement(sql);
-                ps.setString(1, jtfMiembro.getText());
+                ps.setString(1, jtfTipo.getText());
                 ps.setString(2, jtfPrecio.getText());
                 ps.setString(3, jtfMatricula.getText());
-                ps.setString(4, jffTelefono.getText());
-                ps.setString(5, jtfPendiente.getText());
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
                 limpiar();
@@ -311,7 +289,6 @@ public void actualizarMembresia(){
             }        
     }
 
- //ELIMINA CLIENTE DE BD
     public void eliminarMembresia() {
        
         String elimina = "UPDATE  SET estado='Inactivo' WHERE ID =" + jtfID.getText().trim();
@@ -324,7 +301,7 @@ public void actualizarMembresia(){
             con.close();
             limpiar();
             //limpiarTabla();
-            BuscarMembresia();
+            buscarMembresia();
             
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO", "ATENCION!", 0);
@@ -333,11 +310,21 @@ public void actualizarMembresia(){
     
     public void limpiar(){
         jtfID.setText("");
-        jtfMiembro.setText("");
+        jtfTipo.setText("");
         jtfPrecio.setText("");
         jtfMatricula.setText("");
-        jffTelefono.setText("");   
     }
+    
+    public void limpiarTabla() {
+        int fila = tabMiembros.getRowCount();
+        for (int i = fila - 1; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        limpiar();
+    } 
+        
+        
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -384,41 +371,19 @@ public void actualizarMembresia(){
     private javax.swing.JButton botCrear;
     private javax.swing.JButton botListar;
     private javax.swing.JButton botVolver;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JFormattedTextField jffTelefono;
     private javax.swing.JTextField jtfID;
-    private javax.swing.JTextField jtfID1;
     private javax.swing.JTextField jtfMatricula;
-    private javax.swing.JTextField jtfMiembro;
-    private javax.swing.JTextField jtfMiembro1;
-    private javax.swing.JTextField jtfPendiente;
     private javax.swing.JTextField jtfPrecio;
-    private javax.swing.JTextField jtfPrecio1;
+    private javax.swing.JTextField jtfTipo;
     private javax.swing.JTable tabMiembros;
     // End of variables declaration//GEN-END:variables
 }
