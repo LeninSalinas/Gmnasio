@@ -23,6 +23,7 @@ public class Pagos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         BuscarCliente();
+        BuscarMembresias();
     }
     
     DefaultTableModel modelo;
@@ -47,7 +48,7 @@ Statement st = null;
         jtblDatos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbMembresia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(892, 606));
@@ -88,9 +89,9 @@ Statement st = null;
         jPanel1.add(jButton2);
         jButton2.setBounds(700, 250, 120, 50);
 
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(30, 330, 190, 50);
+        jcbMembresia.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
+        jPanel1.add(jcbMembresia);
+        jcbMembresia.setBounds(30, 330, 190, 60);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 892, 606);
@@ -99,6 +100,7 @@ Statement st = null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BuscarCliente() {
+        Conexion conect = new Conexion("gimnasio");
         try {
             String senten = "SELECT * FROM clientes WHERE estado LIKE 'Activo'";
             encontrado = "NO";            
@@ -126,6 +128,7 @@ Statement st = null;
     }
     
     private void BuscarMembresias() {
+        Conexion conect = new Conexion("gimnasio");
         try {
             String senten = "SELECT * FROM membresia WHERE estado LIKE 'Activo'";
             encontrado = "NO";            
@@ -135,11 +138,9 @@ Statement st = null;
             modelo = (DefaultTableModel) jtblDatos.getModel(); //tblDatos es el nombre del JTable
 
             while (rs.next()) {
-                datosCliente[0] = (rs.getInt("id"));
-                datosCliente[1] = (rs.getString("nombre"));
-                datosCliente[2] = (rs.getString("genero"));
+                String membresia = (rs.getString("tipo"));
                 
-                modelo.addRow(datosCliente);
+                jcbMembresia.addItem(membresia);
                 encontrado = "SI";
                 //limpiar();
             }
@@ -198,9 +199,9 @@ Statement st = null;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbMembresia;
     private javax.swing.JTable jtblDatos;
     // End of variables declaration//GEN-END:variables
 }
