@@ -35,7 +35,7 @@ public class frmActPeso extends javax.swing.JDialog {
     Connection con = null;
     Statement st = null;
     Statement st2 = null;
-    public frmActPeso(java.awt.Frame parent, boolean modal) {
+    public frmActPeso(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setSize(502, 556);
@@ -270,7 +270,7 @@ public class frmActPeso extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmActPeso dialog = new frmActPeso(new javax.swing.JFrame(), true);
+                frmActPeso dialog = new frmActPeso(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

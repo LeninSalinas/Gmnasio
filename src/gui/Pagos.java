@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import conexion.Conexion;
 import java.awt.HeadlessException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -33,6 +34,10 @@ String encontrado;
 Conexion conect = new Conexion("gimnasio");
 Connection con = null;
 Statement st = null;
+boolean matricula = false;
+String cod;
+String IDmembresia;
+boolean pendientes;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,9 +51,15 @@ Statement st = null;
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblDatos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbVolver = new javax.swing.JButton();
+        jbPagar = new javax.swing.JButton();
         jcbMembresia = new javax.swing.JComboBox<>();
+        jtfPrecio = new javax.swing.JTextField();
+        jtfMatricula = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jtfTotal = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(892, 606));
@@ -76,28 +87,157 @@ Statement st = null;
                 return canEdit [columnIndex];
             }
         });
+        jtblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtblDatos);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(232, 330, 636, 270);
+        jScrollPane1.setBounds(232, 330, 636, 230);
 
-        jButton1.setText("Volver");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(560, 250, 120, 50);
+        jbVolver.setText("Volver");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbVolver);
+        jbVolver.setBounds(560, 250, 120, 50);
 
-        jButton2.setText("Pagar");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(700, 250, 120, 50);
+        jbPagar.setText("Pagar");
+        jbPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPagarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbPagar);
+        jbPagar.setBounds(700, 250, 120, 50);
 
         jcbMembresia.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
         jPanel1.add(jcbMembresia);
         jcbMembresia.setBounds(30, 330, 190, 60);
+        jPanel1.add(jtfPrecio);
+        jtfPrecio.setBounds(360, 270, 90, 30);
+        jPanel1.add(jtfMatricula);
+        jtfMatricula.setBounds(240, 270, 90, 30);
+
+        jLabel1.setText("Total");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(480, 240, 40, 20);
+
+        jLabel2.setText("Matricula");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(260, 240, 50, 20);
+        jPanel1.add(jtfTotal);
+        jtfTotal.setBounds(460, 270, 90, 30);
+
+        jLabel3.setText("Precio");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(370, 240, 40, 20);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 892, 606);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblDatosMouseClicked
+     matricula = false;
+        int fila = jtblDatos.getSelectedRow();
+        cod = jtblDatos.getValueAt(fila, 0).toString();
+        
+        BuscarMembresia2();
+        if(BuscarMatricula(jtblDatos.getValueAt(fila, 0).toString()) == true){
+        jtfMatricula.setText("Pagada");
+        }
+        if (jcbMembresia.getSelectedItem().toString().equals("Diaria") && BuscarPendientes(cod) == 0) {
+            jtfTotal.setText(jtfPrecio.getText());
+        }else if(!jcbMembresia.getSelectedItem().toString().equals("Mensual") && BuscarPendientes(cod) == 0)  {
+        
+            if(jtfMatricula.getText().equals("Pagada")){
+            jtfTotal.setText(jtfPrecio.getText());
+            }else{
+                Double Precio = Double.parseDouble(jtfPrecio.getText());
+                Double matricula = Double.parseDouble(jtfMatricula.getText()) + Precio;
+            jtfTotal.setText(String.valueOf(matricula));
+            }
+            
+        }else if(jcbMembresia.getSelectedItem().toString().equals("Mensual") && BuscarPendientes(cod) == 0){
+        pendientes = false;
+        if(jtfMatricula.getText().equals("Pagada")){
+            jtfTotal.setText(jtfPrecio.getText());
+        
+        }else{
+        Double Precio = Double.parseDouble(jtfPrecio.getText());
+                Double matricula = Double.parseDouble(jtfMatricula.getText()) + Precio;
+            jtfTotal.setText(String.valueOf(matricula));
+        }
+        }else{
+        pendientes = true;
+        if(jtfMatricula.getText().equals("Pagada")){
+            jtfTotal.setText(jtfPrecio.getText());
+        
+        }else{
+        Double Precio = Double.parseDouble(jtfPrecio.getText());
+                Double matricula = Double.parseDouble(jtfMatricula.getText()) + Precio;
+            jtfTotal.setText(String.valueOf(matricula));
+        }
+        }
+     
+    }//GEN-LAST:event_jtblDatosMouseClicked
+
+    private void jbPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPagarActionPerformed
+if(pendientes){
+    int npendientes = BuscarPendientes(cod);
+    JOptionPane.showMessageDialog(null, "Ud tiene meses "+npendientes+" pendientes\\n"
+                                      + "Se pago un mes pendiente");
+    npendientes--;
+    agregarPendientes(cod,String.valueOf(npendientes) );
+    crearPago();
+    new frmActPeso(this, true).setVisible(true);
+}
+    }//GEN-LAST:event_jbPagarActionPerformed
+
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jbVolverActionPerformed
+public void agregarPendientes(String cod, String npendiente){        
+            try {
+                Conexion conect = new Conexion("gimnasio");
+                con = conect.getConexion();
+                st = con.createStatement();
+                PreparedStatement ps;
+                String sql = "UPDATE clientes SET pendientes="+npendiente+" WHERE id = "+cod;
+                ps = conect.getConexion().prepareStatement(sql);       
+                ps.execute();
+                con.close();                
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO ACTUALIZAR" + e, "ATENCION!", 0);
+            }        
+    }
+
+public void crearPago() {
+    Conexion conect = new Conexion("gimnasio");
+        try {
+            con = conect.getConexion();
+            //COLOQUE EN LA SENTENCIA SQL EL NOMBRE DE SU BD Y LOS NOMBRE DE LOS CAMPOS
+            String sql = "INSERT INTO pagos (ID,IDcliente,IDmembresia,total,estado) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = conect.getConexion().prepareStatement(sql);
+            //COLOQUE LOS NOMBRES DE SUS CUADROS DE DIALOGO (JTEXTFIELD)
+            ps.setInt(1, 0);
+            ps.setString(2, cod);
+            ps.setString(3, IDmembresia);
+            ps.setString(4, jtfTotal.getText());
+            ps.setString(5, "Activo");           
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "REGISTRO INGRESADO CORRECTAMENTE", "ATENCION!", 1);
+            con.close();
+        } catch (SQLException e) {System.out.println(e);
+            JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR", "ATENCION!" + e, 0);
+        }
+    }
 
     private void BuscarCliente() {
         Conexion conect = new Conexion("gimnasio");
@@ -127,6 +267,26 @@ Statement st = null;
         } catch (HeadlessException | SQLException x) {System.out.println(x);}
     }
     
+    private int BuscarPendientes(String cod) {
+        Conexion conect = new Conexion("gimnasio");
+        int pendientes = 0;
+        try {           
+            String senten = "SELECT * FROM clientes WHERE ID = "+cod;
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);         
+            rs.next();
+                pendientes = rs.getInt("pendientes");
+                encontrado = "SI";         
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+        return pendientes;
+    }
+    
     private void BuscarMembresias() {
         Conexion conect = new Conexion("gimnasio");
         try {
@@ -151,6 +311,45 @@ Statement st = null;
             jtblDatos.setModel(modelo);
             con.close();
         } catch (HeadlessException | SQLException x) {System.out.println(x);}
+    }
+    
+    private void BuscarMembresia2() {
+        Conexion conect = new Conexion("gimnasio");
+        try {
+            String senten = "SELECT * FROM membresia WHERE tipo LIKE '"+jcbMembresia.getSelectedItem().toString()+"'";
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+  
+            rs.next();
+               jtfMatricula.setText(rs.getString("matricula"));
+               jtfPrecio.setText(rs.getString("precio"));
+               IDmembresia = rs.getString("ID");
+                encontrado = "SI";
+                //limpiar();
+            
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+    }
+    
+    private boolean BuscarMatricula(String cod) {
+        Conexion conect = new Conexion("gimnasio");
+        boolean matricula2 = false;
+        try {
+            String senten = "SELECT * FROM matricula WHERE IDcliente =  "+cod;           
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+            while (rs.next()) {
+                matricula2 = true;
+                }
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+        return matricula2;
     }
     
     /**
@@ -197,11 +396,17 @@ Statement st = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbPagar;
+    private javax.swing.JButton jbVolver;
     private javax.swing.JComboBox<String> jcbMembresia;
     private javax.swing.JTable jtblDatos;
+    private javax.swing.JTextField jtfMatricula;
+    private javax.swing.JTextField jtfPrecio;
+    private javax.swing.JTextField jtfTotal;
     // End of variables declaration//GEN-END:variables
 }

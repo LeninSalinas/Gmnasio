@@ -201,6 +201,7 @@ public class Membresias extends javax.swing.JDialog {
     }//GEN-LAST:event_botVolverActionPerformed
 
     public void crearMembresia() {
+        Conexion conect = new Conexion("gimnasio");
         try {
             con = conect.getConexion();
             //COLOQUE EN LA SENTENCIA SQL EL NOMBRE DE SU BD Y LOS NOMBRE DE LOS CAMPOS
@@ -216,12 +217,13 @@ public class Membresias extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "REGISTRO INGRESADO CORRECTAMENTE", "ATENCION!", 1);
             limpiar();
             con.close();
-        } catch (SQLException e) {
+        } catch (SQLException e) {System.out.println(e);
             JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR", "ATENCION!" + e, 0);
         }
     }
     
 private void buscarMembresia() {
+    Conexion conect = new Conexion("gimnasio");
         try {
             String senten = "SELECT * FROM miembros WHERE estado LIKE 'Activo'";
             encontrado = "NO";            
@@ -249,6 +251,7 @@ private void buscarMembresia() {
 
     int codigo;
     public int buscarID() {
+        Conexion conect = new Conexion("gimnasio");
         try {
             String senten = "SELECT COUNT(ID) FROM membresia";
             encontrado = "NO";            
@@ -267,9 +270,10 @@ private void buscarMembresia() {
         return codigo+1;
     }
     
-public void actualizarMembresia(){        
+public void actualizarMembresia(){   
+    Conexion conect = new Conexion("gimnasio");
             try {
-                Conexion conect = new Conexion("gimnasio");
+                
                 con = conect.getConexion();
                 st = con.createStatement();
                 PreparedStatement ps;
