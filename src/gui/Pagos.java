@@ -116,10 +116,19 @@ boolean pendientes;
         jbPagar.setBounds(700, 250, 120, 50);
 
         jcbMembresia.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
+        jcbMembresia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMembresiaActionPerformed(evt);
+            }
+        });
         jPanel1.add(jcbMembresia);
         jcbMembresia.setBounds(30, 330, 190, 60);
+
+        jtfPrecio.setEditable(false);
         jPanel1.add(jtfPrecio);
         jtfPrecio.setBounds(360, 270, 90, 30);
+
+        jtfMatricula.setEditable(false);
         jPanel1.add(jtfMatricula);
         jtfMatricula.setBounds(240, 270, 90, 30);
 
@@ -130,6 +139,8 @@ boolean pendientes;
         jLabel2.setText("Matricula");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(260, 240, 50, 20);
+
+        jtfTotal.setEditable(false);
         jPanel1.add(jtfTotal);
         jtfTotal.setBounds(460, 270, 90, 30);
 
@@ -144,12 +155,13 @@ boolean pendientes;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblDatosMouseClicked
-     matricula = false;
+        limpiar();
+        matricula = false;
         int fila = jtblDatos.getSelectedRow();
         cod = jtblDatos.getValueAt(fila, 0).toString();
         
         BuscarMembresia2();
-        if(BuscarMatricula(jtblDatos.getValueAt(fila, 0).toString()) == true){
+        if(BuscarMatricula(cod) == true){
         jtfMatricula.setText("Pagada");
         }
         if (jcbMembresia.getSelectedItem().toString().equals("Diaria") && BuscarPendientes(cod) == 0) {
@@ -189,20 +201,43 @@ boolean pendientes;
     }//GEN-LAST:event_jtblDatosMouseClicked
 
     private void jbPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPagarActionPerformed
-if(pendientes){
-    int npendientes = BuscarPendientes(cod);
+if(BuscarPendientes(cod) > 0){
+    if(jcbMembresia.getSelectedItem().toString().equals("Mensual")){
+int npendientes = BuscarPendientes(cod);
     JOptionPane.showMessageDialog(null, "Ud tiene meses "+npendientes+" pendientes\\n"
                                       + "Se pago un mes pendiente");
     npendientes--;
     agregarPendientes(cod,String.valueOf(npendientes) );
     crearPago();
     new frmActPeso(this, true).setVisible(true);
+}else{
+    JOptionPane.showMessageDialog(null, "Hay Pagos Mensuales pendientes\n"
+                                      + "No se pueden realizar pagos de otras membresias.");
+    }
+}else{
+    if(jcbMembresia.getSelectedItem().toString().equals("Mensual")){
+    int npendientes = 6;
+    agregarPendientes(cod,String.valueOf(npendientes) );
+    crearPago();
+    crearMatricula();
+    new frmActPeso(this, true).setVisible(true);
+    }else if(jcbMembresia.getSelectedItem().toString().equals("Diaria")){
+    crearPago();
+    }else{
+    crearPago();
+    crearMatricula();
+    }
+
 }
     }//GEN-LAST:event_jbPagarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
 this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jbVolverActionPerformed
+
+    private void jcbMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMembresiaActionPerformed
+limpiar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbMembresiaActionPerformed
 public void agregarPendientes(String cod, String npendiente){        
             try {
                 Conexion conect = new Conexion("gimnasio");
@@ -238,6 +273,26 @@ public void crearPago() {
             JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR", "ATENCION!" + e, 0);
         }
     }
+
+public void crearMatricula() {
+    Conexion conect = new Conexion("gimnasio");
+        try {
+            con = conect.getConexion();
+            //COLOQUE EN LA SENTENCIA SQL EL NOMBRE DE SU BD Y LOS NOMBRE DE LOS CAMPOS
+            String sql = "INSERT INTO matricula (ID,IDcliente) VALUES (?,?)";
+            PreparedStatement ps = conect.getConexion().prepareStatement(sql);
+            //COLOQUE LOS NOMBRES DE SUS CUADROS DE DIALOGO (JTEXTFIELD)
+            ps.setInt(1, 0);
+            ps.setString(2, cod);
+                       
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "REGISTRO INGRESADO CORRECTAMENTE", "ATENCION!", 1);
+            con.close();
+        } catch (SQLException e) {System.out.println(e);
+            JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO GUARDAR", "ATENCION!" + e, 0);
+        }
+    }
+
 
     private void BuscarCliente() {
         Conexion conect = new Conexion("gimnasio");
@@ -350,6 +405,12 @@ public void crearPago() {
             con.close();
         } catch (HeadlessException | SQLException x) {System.out.println(x);}
         return matricula2;
+    }
+    
+    public void limpiar(){
+    jtfMatricula.setText("");
+    jtfPrecio.setText("");
+    jtfTotal.setText("");
     }
     
     /**
