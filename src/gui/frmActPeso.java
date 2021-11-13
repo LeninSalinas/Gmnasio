@@ -57,13 +57,14 @@ public class frmActPeso extends javax.swing.JDialog {
 
         txtPeso = new javax.swing.JTextField();
         btnGrafica = new javax.swing.JButton();
+        btnNuevoPeso = new javax.swing.JButton();
         cboNombre = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txtIdMembresia = new javax.swing.JTextField();
         txtIdNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnNuevoPeso = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -79,7 +80,16 @@ public class frmActPeso extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnGrafica);
-        btnGrafica.setBounds(90, 320, 330, 60);
+        btnGrafica.setBounds(90, 380, 330, 60);
+
+        btnNuevoPeso.setText("<html><center>Ingresar nuevo peso</center></html>");
+        btnNuevoPeso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoPesoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNuevoPeso);
+        btnNuevoPeso.setBounds(90, 310, 330, 60);
 
         cboNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,19 +115,20 @@ public class frmActPeso extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(161, 206, 190, 50);
 
-        btnNuevoPeso.setText("<html><center>Ingresar nuevo peso</center></html>");
-        btnNuevoPeso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoPesoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnNuevoPeso);
-        btnNuevoPeso.setBounds(90, 390, 330, 60);
-
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Nombre del cliente");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(161, 100, 200, 30);
+
+        btnTabla.setText("Mostrar Tabla");
+        btnTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTabla);
+        btnTabla.setBounds(90, 450, 330, 60);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,7 +140,7 @@ public class frmActPeso extends javax.swing.JDialog {
 
     private void btnGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficaActionPerformed
         // TODO add your handling code here:
-        //IngresarPeso();
+        this.dispose();
         reportePorNombre();
     }//GEN-LAST:event_btnGraficaActionPerformed
 
@@ -137,6 +148,12 @@ public class frmActPeso extends javax.swing.JDialog {
         // TODO add your handling code here:\
         IngresarPeso();
     }//GEN-LAST:event_btnNuevoPesoActionPerformed
+
+    private void btnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaActionPerformed
+        // TODO add your handling code here:
+        
+        reporteVe_CliIreport();
+    }//GEN-LAST:event_btnTablaActionPerformed
 
     public void DatosClientes() {
         try {
@@ -222,7 +239,7 @@ public class frmActPeso extends javax.swing.JDialog {
                                          //colocamos el nombre del parámetro que enviamos desde la aplicación
            
             //parametro.put("color", color); Si necesitamos enviar otros parámetros usamos la misma variable de tipo Map
-            JasperReport reporte = null;
+            JasperReport reporte = null; 
 
              //RUTA DEL ARCHIVO
             URL urlMaestro = getClass().getResource("/gui/EvolucionDePeso.jasper");
@@ -231,17 +248,38 @@ public class frmActPeso extends javax.swing.JDialog {
             //LLENADO DEL REPORTE
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, con);
             //VISTA DEL REPORTE
-            JasperViewer view = new JasperViewer(jprint, false);
+            JasperViewer view = new JasperViewer(jprint, true);
             //TITULO (OPCIONAL)
 //            view.setTitle("REPORTE DE CLIENTES");
             //CIERRE DEL REPORTE
-            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
-
+            if (view.getDefaultCloseOperation()==DISPOSE_ON_CLOSE) {
+                
+            }
         } catch (JRException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println(e.getMessage());
         }
+    }   
+    
+    public void reporteVe_CliIreport(){
+    try{
+             Conexion conect = new Conexion("gimnasio");
+            con = conect.getConexion();
+            
+            JasperReport repor=null;
+            URL urlMaestro = getClass().getResource("reportTablaCliente.jasper");            
+            repor=(JasperReport) JRLoader.loadObject(urlMaestro);
+            
+            JasperPrint jprint = JasperFillManager.fillReport(repor,null, con);
+            
+            JasperViewer view = new JasperViewer(jprint,true);
+            
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            view.setVisible(true);
+        
+        }catch (JRException e){System.out.print(e);}     
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -285,6 +323,7 @@ public class frmActPeso extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGrafica;
     private javax.swing.JButton btnNuevoPeso;
+    private javax.swing.JButton btnTabla;
     private javax.swing.JComboBox<String> cboNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
