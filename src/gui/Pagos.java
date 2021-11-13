@@ -23,6 +23,7 @@ public class Pagos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         BuscarCliente();
+        BuscarMembresias();
     }
     
     DefaultTableModel modelo;
@@ -45,13 +46,9 @@ Statement st = null;
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblDatos = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jcbMembresia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(892, 606));
@@ -84,33 +81,6 @@ Statement st = null;
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(232, 330, 636, 270);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Tipo de Pago"));
-        jPanel2.setLayout(null);
-
-        jRadioButton1.setText("Diaria");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jRadioButton1);
-        jRadioButton1.setBounds(25, 45, 61, 25);
-
-        jRadioButton2.setText("Semanal");
-        jPanel2.add(jRadioButton2);
-        jRadioButton2.setBounds(25, 97, 79, 25);
-
-        jRadioButton3.setText("Mensual");
-        jPanel2.add(jRadioButton3);
-        jRadioButton3.setBounds(25, 202, 75, 25);
-
-        jRadioButton4.setText("Quincenal");
-        jPanel2.add(jRadioButton4);
-        jRadioButton4.setBounds(25, 152, 85, 25);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 330, 200, 270);
-
         jButton1.setText("Volver");
         jPanel1.add(jButton1);
         jButton1.setBounds(560, 250, 120, 50);
@@ -119,17 +89,18 @@ Statement st = null;
         jPanel1.add(jButton2);
         jButton2.setBounds(700, 250, 120, 50);
 
+        jcbMembresia.setBorder(javax.swing.BorderFactory.createTitledBorder("Membresia"));
+        jPanel1.add(jcbMembresia);
+        jcbMembresia.setBounds(30, 330, 190, 60);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 892, 606);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
     private void BuscarCliente() {
+        Conexion conect = new Conexion("gimnasio");
         try {
             String senten = "SELECT * FROM clientes WHERE estado LIKE 'Activo'";
             encontrado = "NO";            
@@ -144,6 +115,32 @@ Statement st = null;
                 datosCliente[2] = (rs.getString("genero"));
                 
                 modelo.addRow(datosCliente);
+                encontrado = "SI";
+                //limpiar();
+            }
+
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            jtblDatos.setModel(modelo);
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+    }
+    
+    private void BuscarMembresias() {
+        Conexion conect = new Conexion("gimnasio");
+        try {
+            String senten = "SELECT * FROM membresia WHERE estado LIKE 'Activo'";
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);
+            modelo = (DefaultTableModel) jtblDatos.getModel(); //tblDatos es el nombre del JTable
+
+            while (rs.next()) {
+                String membresia = (rs.getString("tipo"));
+                
+                jcbMembresia.addItem(membresia);
                 encontrado = "SI";
                 //limpiar();
             }
@@ -203,12 +200,8 @@ Statement st = null;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbMembresia;
     private javax.swing.JTable jtblDatos;
     // End of variables declaration//GEN-END:variables
 }
