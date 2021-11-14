@@ -2,12 +2,23 @@ package gui;
 
 import conexion.Conexion;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -15,25 +26,33 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author ARABEY ORELLANA
  */
 public class Clientes extends javax.swing.JDialog {
-
-    public Clientes(java.awt.Frame parent, boolean modal, String user) {
+  int longitudBytes;
+    File foto;
+    FileInputStream entradaFoto;
+    ImageIcon icono = new ImageIcon("src/foto.jpg");
+    boolean estadoFoto = false;
+   
+    
+   public Clientes(java.awt.Frame parent, boolean modal,String user) {
         super(parent, modal);
         initComponents();
-
+        int longitudBytes;
+       jlbfoto.setIcon(icono);
     }
-    String usuario;
+   String usuario;
     Conexion conect = new Conexion("gimnasio");
     Connection con = null;
     Statement st = null;
     DefaultTableModel modelo;
     Object datosClientes[] = new Object[5];
     String codigo;
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +72,7 @@ public class Clientes extends javax.swing.JDialog {
         txtedad = new javax.swing.JTextField();
         txtgenero = new javax.swing.JTextField();
         txtpeso = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        jlbfoto = new javax.swing.JLabel();
         btncrear = new javax.swing.JButton();
         btnleer = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
@@ -66,14 +85,10 @@ public class Clientes extends javax.swing.JDialog {
         tblDatos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(900, 600));
-        setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setMaximumSize(new java.awt.Dimension(1375, 778));
+        setMinimumSize(new java.awt.Dimension(1375, 778));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel1.setMaximumSize(new java.awt.Dimension(900, 600));
-        jPanel1.setMinimumSize(new java.awt.Dimension(900, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 51));
 
@@ -97,10 +112,10 @@ public class Clientes extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setBackground(new java.awt.Color(0, 153, 153));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("foto");
-        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jlbfoto.setBackground(new java.awt.Color(0, 153, 153));
+        jlbfoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbfoto.setText("foto");
+        jlbfoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,35 +135,34 @@ public class Clientes extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtpeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                         .addComponent(txtgenero, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                .addComponent(jlbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         btncrear.setText("Crear");
@@ -169,11 +183,6 @@ public class Clientes extends javax.swing.JDialog {
         btnleer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnleerMouseClicked(evt);
-            }
-        });
-        btnleer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnleerActionPerformed(evt);
             }
         });
 
@@ -226,6 +235,11 @@ public class Clientes extends javax.swing.JDialog {
 
         btnfoto.setText("Foto");
         btnfoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnfoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfotoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("FIT GYM");
@@ -235,11 +249,11 @@ public class Clientes extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Nombre", "Edad", "Genero", "Peso"
+                "Nombre", "Edad", "Genero", "Peso"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -258,7 +272,6 @@ public class Clientes extends javax.swing.JDialog {
             tblDatos.getColumnModel().getColumn(1).setResizable(false);
             tblDatos.getColumnModel().getColumn(2).setResizable(false);
             tblDatos.getColumnModel().getColumn(3).setResizable(false);
-            tblDatos.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -283,10 +296,10 @@ public class Clientes extends javax.swing.JDialog {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btncrear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btncrear, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnleer, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,9 +307,9 @@ public class Clientes extends javax.swing.JDialog {
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +331,7 @@ public class Clientes extends javax.swing.JDialog {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -335,62 +348,130 @@ public class Clientes extends javax.swing.JDialog {
         );
     }// </editor-fold>//GEN-END:initComponents
  private void crearCliente() {
-
-        if (txtnombre.getText().isEmpty() || txtedad.getText().isEmpty() || txtgenero.getText().isEmpty() || txtpeso.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "PORFAVOR ASEGURESE DE QUE TODOS LOS CAMPOS ESTEN LLENOS", "ATENCION!", 1);
-        } else {
-            try {
-                Conexion conect = new Conexion("gimnasio");
-                con = conect.getConexion();
-
-                String sql = "INSERT INTO clientes (ID,Nombre,Edad,Genero,Peso,Estado) VALUES (?,?,?,?,?,?)";
-                PreparedStatement ps = conect.getConexion().prepareStatement(sql);
-
-                ps.setInt(1, 0);
-                ps.setString(2, txtnombre.getText());
-                ps.setString(3, txtedad.getText());
-                ps.setString(4, txtgenero.getText());
-                ps.setString(5, txtpeso.getText());
-                ps.setString(6, "Activo");
-                ps.execute();
-                con.close();
-                JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA CREADO", "ATENCION!", JOptionPane.INFORMATION_MESSAGE);
-                limpiarTabla();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "ATENCION!" + e, 0);
-            }
-        }     //To change body of generated methods, choose Tools | Templates.
+       
+        if(txtnombre.getText().isEmpty()||txtedad.getText().isEmpty()||txtgenero.getText().isEmpty()||txtpeso.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "PORFAVOR ASEGURESE DE QUE TODOS LOS CAMPOS ESTEN LLENOS", "ATENCION!", 1);
+       }else{
+           try {
+            Conexion conect = new Conexion("gimnasio");
+            con = conect.getConexion();
+       
+            String sql = "INSERT INTO clientes (ID,Nombre,Edad,Genero,Peso,Foto,Estado) VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement ps = conect.getConexion().prepareStatement(sql);
+          
+            ps.setInt(1, 0);
+            ps.setString(2, txtnombre.getText());
+            ps.setString(3, txtedad.getText());
+            ps.setString(4, txtgenero.getText());
+            ps.setString(5, txtpeso.getText());
+            ps.setBlob(6, entradaFoto, longitudBytes);
+            ps.setString(7, "Activo"); 
+            ps.execute();
+            con.close();
+            JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA CREADO", "ATENCION!", JOptionPane.INFORMATION_MESSAGE);
+            limpiarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ATENCION!" + e, 0);
+        }  
+       }     //To change body of generated methods, choose Tools | Templates.
     }
-
     private void actualizarCliente() {
+        
         try {
 
+                Conexion conect = new Conexion("gimnasio");
+                con = conect.getConexion();
+                st = con.createStatement();
+                PreparedStatement ps;
+
+                String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=?,foto=? WHERE ID =? AND Estado = 'Activo'";
+                ps = conect.getConexion().prepareStatement(sql);
+                ps.setString(1,txtnombre.getText());
+                ps.setString(2, txtedad.getText());
+                ps.setString(3, txtgenero.getText());
+                ps.setString(4, txtpeso.getText());
+                ps.setBlob(5, entradaFoto, longitudBytes);
+                 ps.setString(6,codigo);
+                ps.execute();
+                JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
+                limpiarTabla();
+                con.close();                
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
+            } 
+    }        
+        //METODO PARA SELECCIONAR LA FOTO
+     public void seleccionarFoto() {
+        //Nos permite a través de una ventana, seleccioar un archivo
+        JFileChooser seleccionarFoto = new JFileChooser();
+        FileNameExtensionFilter filtro;// seleccionamos el tipo de extensión de la imagen
+        filtro = new FileNameExtensionFilter("JPG, PNG, GIF", "jpg", "png", "gif");
+        seleccionarFoto.setFileFilter(filtro);
+        //colocamos un titulo a la ventana (opcional)
+        seleccionarFoto.setDialogTitle("BUSCAR FOTO");
+        //Establecemos una ruta con la carpeta de las imagenes (opcional)
+        File ruta = new File("C:/foto");
+        seleccionarFoto.setCurrentDirectory(ruta);
+        int estado = seleccionarFoto.showOpenDialog(this);
+        //Si el usuario dio click en botón aceptar
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
+                //seleccionamos la foto
+                entradaFoto = new FileInputStream(seleccionarFoto.getSelectedFile());
+                //tomamos la medida de la imagen en bytes
+                this.longitudBytes = (int) seleccionarFoto.getSelectedFile().length();
+                //tomamos el tamaño de la etiqueta y colocamos la imagen en ella 
+                Image iconoF = ImageIO.read(seleccionarFoto.getSelectedFile()).getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);
+                jlbfoto.setIcon(new ImageIcon(iconoF));
+                //variable bandera que la utilizamoa al momento de actualizar
+                estadoFoto = true;
+
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, ex, "ATENCION!", 0);
+            } catch (IOException exp) {
+                JOptionPane.showMessageDialog(null, exp, "ATENCION!", 0);
+            }
+        }
+     }
+     
+        
+     private void BuscarFoto(String cod) {
+
+        try {
+            String encontrado = "NO";
             Conexion conect = new Conexion("gimnasio");
             con = conect.getConexion();
             st = con.createStatement();
-            PreparedStatement ps;
-
-            String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=? WHERE ID =? AND Estado = 'Activo'";
-            ps = conect.getConexion().prepareStatement(sql);
-            ps.setString(1, txtnombre.getText());
-            ps.setString(2, txtedad.getText());
-            ps.setString(3, txtgenero.getText());
-            ps.setString(4, txtpeso.getText());
-            ps.setString(5, codigo);
-            ps.execute();
-            JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
-            limpiarTabla();
+            ResultSet rs = st.executeQuery("SELECT * FROM clientes WHERE ID =" + cod);
+            ImageIcon iconoBD;
+            InputStream salidaFoto;
+            Image imageBD;
+            Image nuevaImgModificada;
+            while (rs.next()) {
+                salidaFoto = rs.getBinaryStream("foto"); //Saco la foto de la BD
+                BufferedImage im = ImageIO.read(salidaFoto);
+                iconoBD = new ImageIcon(im);
+                imageBD = iconoBD.getImage();
+                nuevaImgModificada = imageBD.getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);//Utilice el algoritmo de escalado de imágenes predeterminado.
+                //nuevaImgModificada = imageBD.getScaledInstance(170, 170, Image.SCALE_SMOOTH);//Elija un algoritmo de escalado de imagen que dé mayor prioridad a la suavidad de la imagen que a la velocidad de escalado.
+                ImageIcon mostrarFoto = new ImageIcon(nuevaImgModificada);
+                jlbfoto.setIcon(mostrarFoto);
+                encontrado = "SI";
+            }
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "ID DE CLIENTE NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
             con.close();
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
+        } catch (HeadlessException | IOException | SQLException y) {
         }
+     
+     
     }
-
-    private void BuscarCliente() {
-        try {
+     private void BuscarCliente() {
+         try {
             Conexion conect = new Conexion("gimnasio");
-            String senten = "SELECT * FROM clientes WHERE Estado LIKE 'activo' AND Nombre LIKE '" + txtnombre.getText() + "%'";
-            String encontrado = "no";
+            String senten = "SELECT * FROM clientes WHERE Estado LIKE 'activo' AND Nombre LIKE '"+txtnombre.getText()+"%'";
+            String encontrado = "no";            
             con = conect.getConexion();
             st = con.createStatement();
             ResultSet rs = st.executeQuery(senten);
@@ -411,49 +492,43 @@ public class Clientes extends javax.swing.JDialog {
             }
             tblDatos.setModel(modelo);
             con.close();
-        } catch (HeadlessException | SQLException x) {
-        } //To change body of generated methods, choose Tools | Templates.
+        } catch (HeadlessException | SQLException x) {} //To change body of generated methods, choose Tools | Templates.
     }
-
-    private void limpiarTabla() {
+private void limpiarTabla() {
         try {
-            int fila = tblDatos.getRowCount();
-            for (int i = fila - 1; i >= 0; i--) {
-                modelo.removeRow(i);
-            }
-            limpiar();
-        } catch (Exception e) {
+        int fila = tblDatos.getRowCount();
+        for (int i = fila - 1; i >= 0; i--) {
+            modelo.removeRow(i);
         }
-        //To change body of generated methods, choose Tools | Templates.
+        limpiar();
+    } catch (Exception e) {
     }
-
-    public void limpiar() {
+ //To change body of generated methods, choose Tools | Templates.
+    }
+public void limpiar(){
         txtnombre.setText("");
         txtedad.setText("");
         txtgenero.setText("");
         txtpeso.setText("");
     }
-//private void limpiartabla() {
-    //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
 
-    private void eliminarCliente() {
+ private void eliminarCliente() {
         try {
             Conexion conect = new Conexion("gimnasio");
             con = conect.getConexion();
             st = con.createStatement();
             PreparedStatement ps;
-
+            
             String elimina = "UPDATE clientes SET Estado=? WHERE ID =? AND Estado = 'Activo'";
             String estado = "Inactivo";
             ps = conect.getConexion().prepareStatement(elimina);
-            ps.setString(1, estado);
-            ps.setString(2, codigo);
+            ps.setString(1,estado);
+            ps.setString(2,codigo);
             ps.execute();
             JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CORRECTAMENTE", "ATENCION!", 1);
             con.close();
             limpiarTabla();
-
+            
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO", "ATENCION!", 0);
         } //To change body of generated methods, choose Tools | Templates.
@@ -467,25 +542,25 @@ public class Clientes extends javax.swing.JDialog {
     }//GEN-LAST:event_txtpesoActionPerformed
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
-
+       
         // TODO add your handling code here:
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
-
+      
     }//GEN-LAST:event_btncrearActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-
+       
     }//GEN-LAST:event_btnmodificarActionPerformed
 
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        this.dispose();              // TODO add your handling code here:
+this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btncrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncrearMouseClicked
-        crearCliente(); // TODO add your handling code here:
+       crearCliente(); // TODO add your handling code here:
     }//GEN-LAST:event_btncrearMouseClicked
 
     private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
@@ -493,15 +568,15 @@ public class Clientes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnmodificarMouseClicked
 
     private void btnleerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnleerMouseClicked
-        BuscarCliente(); // TODO add your handling code here:
+       BuscarCliente(); // TODO add your handling code here:
     }//GEN-LAST:event_btnleerMouseClicked
 
     private void btnlimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlimpiarMouseClicked
-        limpiarTabla();  // TODO add your handling code here:
+      limpiarTabla();  // TODO add your handling code here:
     }//GEN-LAST:event_btnlimpiarMouseClicked
 
     private void btneliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarMouseClicked
-        eliminarCliente();// TODO add your handling code here:
+       eliminarCliente();// TODO add your handling code here:
     }//GEN-LAST:event_btneliminarMouseClicked
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
@@ -509,22 +584,22 @@ public class Clientes extends javax.swing.JDialog {
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
-        int fila = tblDatos.getSelectedRow();
-        codigo = tblDatos.getValueAt(fila, 0).toString();
-        txtnombre.setText(tblDatos.getValueAt(fila, 1).toString());
-        txtedad.setText(tblDatos.getValueAt(fila, 2).toString());
-        txtgenero.setText(tblDatos.getValueAt(fila, 3).toString());
-        txtpeso.setText(tblDatos.getValueAt(fila, 4).toString());
-        // TODO add your handling code here:
+int fila = tblDatos.getSelectedRow();
+        txtnombre.setText(tblDatos.getValueAt(fila, 0).toString());
+        txtedad.setText(tblDatos.getValueAt(fila, 1).toString());
+        txtgenero.setText(tblDatos.getValueAt(fila, 2).toString());
+        txtpeso.setText(tblDatos.getValueAt(fila, 3).toString());
+        BuscarFoto(codigo.trim());
+             // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
 
-    private void btnleerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnleerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnleerActionPerformed
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
+      seleccionarFoto();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnfotoActionPerformed
+ public static void main(String args[]) {
+       java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Clientes dialog = new Clientes(new javax.swing.JFrame(), true, "user");
+                Clientes dialog = new Clientes(new javax.swing.JFrame(), true,"user");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -534,8 +609,8 @@ public class Clientes extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
-    }
-
+ }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncrear;
     private javax.swing.JButton btneliminar;
@@ -549,11 +624,11 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlbfoto;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtedad;
     private javax.swing.JTextField txtgenero;
@@ -561,4 +636,11 @@ public class Clientes extends javax.swing.JDialog {
     private javax.swing.JTextField txtpeso;
     // End of variables declaration//GEN-END:variables
 
+   
+
 }
+        
+
+
+    
+
