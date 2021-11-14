@@ -443,7 +443,7 @@ public void crearMatricula() {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Pagos dialog = new Pagos(new javax.swing.JFrame(), true);
+                Pagos dialog = new Pagos(new javax.swing.JFrame(), false);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

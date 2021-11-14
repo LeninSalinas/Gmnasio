@@ -140,7 +140,7 @@ public class frmActPeso extends javax.swing.JDialog {
 
     private void btnGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficaActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        
         reportePorNombre();
     }//GEN-LAST:event_btnGraficaActionPerformed
 
@@ -153,6 +153,7 @@ public class frmActPeso extends javax.swing.JDialog {
         // TODO add your handling code here:
         
         reporteVe_CliIreport();
+        
     }//GEN-LAST:event_btnTablaActionPerformed
 
     public void DatosClientes() {
@@ -248,14 +249,12 @@ public class frmActPeso extends javax.swing.JDialog {
             //LLENADO DEL REPORTE
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, con);
             //VISTA DEL REPORTE
-            JasperViewer view = new JasperViewer(jprint, true);
+            JasperViewer view = new JasperViewer(jprint, false);
             //TITULO (OPCIONAL)
 //            view.setTitle("REPORTE DE CLIENTES");
             //CIERRE DEL REPORTE
             view.setVisible(true);
-            if (view.getDefaultCloseOperation()==DISPOSE_ON_CLOSE) {
-                
-            }
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         } catch (JRException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println(e.getMessage());
@@ -273,7 +272,7 @@ public class frmActPeso extends javax.swing.JDialog {
             
             JasperPrint jprint = JasperFillManager.fillReport(repor,null, con);
             
-            JasperViewer view = new JasperViewer(jprint,true);
+            JasperViewer view = new JasperViewer(jprint,false);
             
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             
@@ -308,7 +307,7 @@ public class frmActPeso extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmActPeso dialog = new frmActPeso(new javax.swing.JDialog(), true);
+                frmActPeso dialog = new frmActPeso(new javax.swing.JDialog(), false);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
