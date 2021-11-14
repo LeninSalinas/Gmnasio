@@ -209,7 +209,7 @@ int npendientes = BuscarPendientes(cod);
     npendientes--;
     agregarPendientes(cod,String.valueOf(npendientes) );
     crearPago();
-    new frmActPeso(this, true).setVisible(true);
+    new frmActPeso(this, false).setVisible(true);
 }else{
     JOptionPane.showMessageDialog(null, "Hay Pagos Mensuales pendientes\n"
                                       + "No se pueden realizar pagos de otras membresias.");
@@ -220,7 +220,7 @@ int npendientes = BuscarPendientes(cod);
     agregarPendientes(cod,String.valueOf(npendientes) );
     crearPago();
     crearMatricula();
-    new frmActPeso(this, true).setVisible(true);
+    new frmActPeso(this, false).setVisible(true);
     }else if(jcbMembresia.getSelectedItem().toString().equals("Diaria")){
     crearPago();
     }else{

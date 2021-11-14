@@ -15,28 +15,25 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author ARABEY ORELLANA
  */
 public class Clientes extends javax.swing.JDialog {
 
-    
-   public Clientes(java.awt.Frame parent, boolean modal,String user) {
+    public Clientes(java.awt.Frame parent, boolean modal, String user) {
         super(parent, modal);
         initComponents();
-        
-       
+
     }
-   String usuario;
+    String usuario;
     Conexion conect = new Conexion("gimnasio");
     Connection con = null;
     Statement st = null;
     DefaultTableModel modelo;
     Object datosClientes[] = new Object[5];
-  
-      
+    String codigo;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -229,11 +226,11 @@ public class Clientes extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Edad", "Genero", "Peso"
+                "ID", "Nombre", "Edad", "Genero", "Peso"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -252,6 +249,7 @@ public class Clientes extends javax.swing.JDialog {
             tblDatos.getColumnModel().getColumn(1).setResizable(false);
             tblDatos.getColumnModel().getColumn(2).setResizable(false);
             tblDatos.getColumnModel().getColumn(3).setResizable(false);
+            tblDatos.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -328,69 +326,73 @@ public class Clientes extends javax.swing.JDialog {
         );
     }// </editor-fold>//GEN-END:initComponents
  private void crearCliente() {
-       
-        if(txtnombre.getText().isEmpty()||txtedad.getText().isEmpty()||txtgenero.getText().isEmpty()||txtpeso.getText().isEmpty()){
-           JOptionPane.showMessageDialog(null, "PORFAVOR ASEGURESE DE QUE TODOS LOS CAMPOS ESTEN LLENOS", "ATENCION!", 1);
-       }else{
-           try {
-            Conexion conect = new Conexion("gimnasio");
-            con = conect.getConexion();
-       
-            String sql = "INSERT INTO clientes (ID,Nombre,Edad,Genero,Peso,Estado) VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = conect.getConexion().prepareStatement(sql);
-          
-            ps.setInt(1, 0);
-            ps.setString(2, txtnombre.getText());
-            ps.setString(3, txtedad.getText());
-            ps.setString(4, txtgenero.getText());
-            ps.setString(5, txtpeso.getText());
-            ps.setString(6, "Activo"); 
-            ps.execute();
-            con.close();
-            JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA CREADO", "ATENCION!", JOptionPane.INFORMATION_MESSAGE);
-            limpiarTabla();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "ATENCION!" + e, 0);
-        }  
-       }     //To change body of generated methods, choose Tools | Templates.
+
+        if (txtnombre.getText().isEmpty() || txtedad.getText().isEmpty() || txtgenero.getText().isEmpty() || txtpeso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "PORFAVOR ASEGURESE DE QUE TODOS LOS CAMPOS ESTEN LLENOS", "ATENCION!", 1);
+        } else {
+            try {
+                Conexion conect = new Conexion("gimnasio");
+                con = conect.getConexion();
+
+                String sql = "INSERT INTO clientes (ID,Nombre,Edad,Genero,Peso,Estado) VALUES (?,?,?,?,?,?)";
+                PreparedStatement ps = conect.getConexion().prepareStatement(sql);
+
+                ps.setInt(1, 0);
+                ps.setString(2, txtnombre.getText());
+                ps.setString(3, txtedad.getText());
+                ps.setString(4, txtgenero.getText());
+                ps.setString(5, txtpeso.getText());
+                ps.setString(6, "Activo");
+                ps.execute();
+                con.close();
+                JOptionPane.showMessageDialog(null, "EL REGISTRO SE HA CREADO", "ATENCION!", JOptionPane.INFORMATION_MESSAGE);
+                limpiarTabla();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ATENCION!" + e, 0);
+            }
+        }     //To change body of generated methods, choose Tools | Templates.
     }
+
     private void actualizarCliente() {
         try {
 
-                Conexion conect = new Conexion("gimnasio");
-                con = conect.getConexion();
-                st = con.createStatement();
-                PreparedStatement ps;
-
-                String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=? WHERE ID =? AND Estado = 'Activo'";
-                ps = conect.getConexion().prepareStatement(sql);
-                ps.setString(1,txtnombre.getText());
-                ps.setString(2, txtedad.getText());
-                ps.setString(3, txtgenero.getText());
-                ps.setString(4, txtpeso.getText());
-                ps.execute();
-                JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
-                limpiarTabla();
-                con.close();                
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
-            }         
-    }
-     private void BuscarCliente() {
-         try {
             Conexion conect = new Conexion("gimnasio");
-            String senten = "SELECT * FROM clientes WHERE Estado LIKE 'activo' AND Nombre LIKE '"+txtnombre.getText()+"%'";
-            String encontrado = "no";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            PreparedStatement ps;
+
+            String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=? WHERE ID =? AND Estado = 'Activo'";
+            ps = conect.getConexion().prepareStatement(sql);
+            ps.setString(1, txtnombre.getText());
+            ps.setString(2, txtedad.getText());
+            ps.setString(3, txtgenero.getText());
+            ps.setString(4, txtpeso.getText());
+            ps.setString(5, codigo);
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
+            limpiarTabla();
+            con.close();
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
+        }
+    }
+
+    private void BuscarCliente() {
+        try {
+            Conexion conect = new Conexion("gimnasio");
+            String senten = "SELECT * FROM clientes WHERE Estado LIKE 'activo' AND Nombre LIKE '" + txtnombre.getText() + "%'";
+            String encontrado = "no";
             con = conect.getConexion();
             st = con.createStatement();
             ResultSet rs = st.executeQuery(senten);
             modelo = (DefaultTableModel) tblDatos.getModel();
 
             while (rs.next()) {
-                datosClientes[0] = (rs.getString("Nombre"));
-                datosClientes[1] = (rs.getString("Edad"));
-                datosClientes[2] = (rs.getString("Genero"));
-                datosClientes[3] = (rs.getString("Peso"));
+                datosClientes[0] = (rs.getString("ID"));
+                datosClientes[1] = (rs.getString("Nombre"));
+                datosClientes[2] = (rs.getString("Edad"));
+                datosClientes[3] = (rs.getString("Genero"));
+                datosClientes[4] = (rs.getString("Peso"));
                 modelo.addRow(datosClientes);
                 encontrado = "SI";
             }
@@ -400,45 +402,49 @@ public class Clientes extends javax.swing.JDialog {
             }
             tblDatos.setModel(modelo);
             con.close();
-        } catch (HeadlessException | SQLException x) {} //To change body of generated methods, choose Tools | Templates.
+        } catch (HeadlessException | SQLException x) {
+        } //To change body of generated methods, choose Tools | Templates.
     }
-private void limpiarTabla() {
+
+    private void limpiarTabla() {
         try {
-        int fila = tblDatos.getRowCount();
-        for (int i = fila - 1; i >= 0; i--) {
-            modelo.removeRow(i);
+            int fila = tblDatos.getRowCount();
+            for (int i = fila - 1; i >= 0; i--) {
+                modelo.removeRow(i);
+            }
+            limpiar();
+        } catch (Exception e) {
         }
-        limpiar();
-    } catch (Exception e) {
+        //To change body of generated methods, choose Tools | Templates.
     }
- //To change body of generated methods, choose Tools | Templates.
-    }
-public void limpiar(){
+
+    public void limpiar() {
         txtnombre.setText("");
         txtedad.setText("");
         txtgenero.setText("");
         txtpeso.setText("");
     }
 //private void limpiartabla() {
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-   // }
- private void eliminarCliente() {
+    //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
+
+    private void eliminarCliente() {
         try {
             Conexion conect = new Conexion("gimnasio");
             con = conect.getConexion();
             st = con.createStatement();
             PreparedStatement ps;
-            
-            String elimina = "UPDATE clientes SET Estado=? WHERE Cliente =? AND Estado = 'Activo'";
+
+            String elimina = "UPDATE clientes SET Estado=? WHERE ID =? AND Estado = 'Activo'";
             String estado = "Inactivo";
             ps = conect.getConexion().prepareStatement(elimina);
-            ps.setString(1,estado);
-            ps.setString(2,txtnombre.getText());
+            ps.setString(1, estado);
+            ps.setString(2, codigo);
             ps.execute();
             JOptionPane.showMessageDialog(null, "REGISTRO ELIMINADO CORRECTAMENTE", "ATENCION!", 1);
             con.close();
             limpiarTabla();
-            
+
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO", "ATENCION!", 0);
         } //To change body of generated methods, choose Tools | Templates.
@@ -452,25 +458,25 @@ public void limpiar(){
     }//GEN-LAST:event_txtpesoActionPerformed
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
-       
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
-      
+
     }//GEN-LAST:event_btncrearActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-       
+
     }//GEN-LAST:event_btnmodificarActionPerformed
 
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-this.dispose();              // TODO add your handling code here:
+        this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btncrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncrearMouseClicked
-       crearCliente(); // TODO add your handling code here:
+        crearCliente(); // TODO add your handling code here:
     }//GEN-LAST:event_btncrearMouseClicked
 
     private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
@@ -478,15 +484,15 @@ this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btnmodificarMouseClicked
 
     private void btnleerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnleerMouseClicked
-       BuscarCliente(); // TODO add your handling code here:
+        BuscarCliente(); // TODO add your handling code here:
     }//GEN-LAST:event_btnleerMouseClicked
 
     private void btnlimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlimpiarMouseClicked
-      limpiarTabla();  // TODO add your handling code here:
+        limpiarTabla();  // TODO add your handling code here:
     }//GEN-LAST:event_btnlimpiarMouseClicked
 
     private void btneliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarMouseClicked
-       eliminarCliente();// TODO add your handling code here:
+        eliminarCliente();// TODO add your handling code here:
     }//GEN-LAST:event_btneliminarMouseClicked
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
@@ -494,17 +500,18 @@ this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
-int fila = tblDatos.getSelectedRow();
-        txtnombre.setText(tblDatos.getValueAt(fila, 0).toString());
-        txtedad.setText(tblDatos.getValueAt(fila, 1).toString());
-        txtgenero.setText(tblDatos.getValueAt(fila, 2).toString());
-        txtpeso.setText(tblDatos.getValueAt(fila, 3).toString());
-             // TODO add your handling code here:
+        int fila = tblDatos.getSelectedRow();
+        codigo = tblDatos.getValueAt(fila, 0).toString();
+        txtnombre.setText(tblDatos.getValueAt(fila, 1).toString());
+        txtedad.setText(tblDatos.getValueAt(fila, 2).toString());
+        txtgenero.setText(tblDatos.getValueAt(fila, 3).toString());
+        txtpeso.setText(tblDatos.getValueAt(fila, 4).toString());
+        // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
- public static void main(String args[]) {
-       java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Clientes dialog = new Clientes(new javax.swing.JFrame(), true,"user");
+                Clientes dialog = new Clientes(new javax.swing.JFrame(), true, "user");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -514,8 +521,8 @@ int fila = tblDatos.getSelectedRow();
                 dialog.setVisible(true);
             }
         });
- }
- 
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncrear;
     private javax.swing.JButton btneliminar;
@@ -541,11 +548,4 @@ int fila = tblDatos.getSelectedRow();
     private javax.swing.JTextField txtpeso;
     // End of variables declaration//GEN-END:variables
 
-   
-
 }
-        
-
-
-    
-
