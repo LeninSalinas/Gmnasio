@@ -209,6 +209,7 @@ int npendientes = BuscarPendientes(cod);
     npendientes--;
     agregarPendientes(cod,String.valueOf(npendientes) );
     crearPago();
+        cambiarMembresia(cod, jcbMembresia.getSelectedItem().toString());
     new frmActPeso(this, false).setVisible(true);
 }else{
     JOptionPane.showMessageDialog(null, "Hay Pagos Mensuales pendientes\n"
@@ -219,12 +220,15 @@ int npendientes = BuscarPendientes(cod);
     int npendientes = 6;
     agregarPendientes(cod,String.valueOf(npendientes) );
     crearPago();
+    cambiarMembresia(cod, jcbMembresia.getSelectedItem().toString());
     crearMatricula();
     new frmActPeso(this, false).setVisible(true);
     }else if(jcbMembresia.getSelectedItem().toString().equals("Diaria")){
     crearPago();
+    cambiarMembresia(cod, jcbMembresia.getSelectedItem().toString());
     }else{
     crearPago();
+    cambiarMembresia(cod, jcbMembresia.getSelectedItem().toString());
     crearMatricula();
     }
 
@@ -249,6 +253,21 @@ public void agregarPendientes(String cod, String npendiente){
                 ps.execute();
                 con.close();                
             } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO ACTUALIZAR" + e, "ATENCION!", 0);
+            }        
+    }
+
+public void cambiarMembresia(String cod, String nMembresia){        
+            try {
+                Conexion conect = new Conexion("gimnasio");
+                con = conect.getConexion();
+                st = con.createStatement();
+                PreparedStatement ps;
+                String sql = "UPDATE clientes SET membresia= '"+nMembresia+"' WHERE id = "+cod;
+                ps = conect.getConexion().prepareStatement(sql);       
+                ps.execute();
+                con.close();                
+            } catch (HeadlessException | SQLException e) {System.out.println(e);
                 JOptionPane.showMessageDialog(null, "REGISTRO NO SE PUDO ACTUALIZAR" + e, "ATENCION!", 0);
             }        
     }
