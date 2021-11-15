@@ -4,6 +4,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 54c92de (mas)
 =======
 >>>>>>> parent of 54c92de (mas)
 =======
@@ -662,6 +665,7 @@ int fila = tblDatos.getSelectedRow();
 
     
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1411,6 +1415,8 @@ new tomarfoto2(this, true, codigo).setVisible(true);
 >>>>>>> f7c7ab7855affc689f8df4902e743b05856e76ca
 =======
 >>>>>>> parent of f7c7ab7 ()
+=======
+>>>>>>> parent of 54c92de (mas)
 =======
 >>>>>>> parent of 54c92de (mas)
 =======
