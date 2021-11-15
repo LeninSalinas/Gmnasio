@@ -1,3 +1,5 @@
+package gui;
+
 
 import conexion.Conexion;
 import java.awt.HeadlessException;
@@ -18,28 +20,34 @@ import javax.swing.JOptionPane;
  *
  * @author ARABEY ORELLANA
  */
-public class tomarfoto extends javax.swing.JFrame {
+public class tomarfoto extends javax.swing.JDialog {
 
     /**
      * Creates new form tomarfoto
      */
-    public tomarfoto() {
+    public tomarfoto(javax.swing.JDialog parent, boolean modal , String codigo) {
     initComponents();
+   String cod = codigo;
+    }
     Connection con = null;
     Statement st = null;
     String encontrado;
+
+    private tomarfoto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 //METODO PARA GUARDAR FOTO QUE SE HA TOMADO
-public void guardarFoto(Connection con) {
+public void guardarFoto(Connection con, String cod) {
+    
         byte imagen[] = jpfoto.getBytes();
-        String sentencia = "INSERT INTO foto (foto) VALUES (?)";
+        String sentencia = "UPDATE clientes SET foto=? WHERE ID = "+cod;
         try {
 
             Conexion conect = new Conexion("gimnasio");
             con = conect.getConexion();
             PreparedStatement ps = con.prepareStatement(sentencia);
-            ps.setInt(1, 0);
-            ps.setBytes(2, imagen);
+            
+            ps.setBytes(1, imagen);
             ps.execute();
             JOptionPane.showMessageDialog(null, "FOTO INGRESADA CORRECTAMENTE");
             limpiar();

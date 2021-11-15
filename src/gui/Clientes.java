@@ -45,10 +45,12 @@ public class Clientes extends javax.swing.JDialog {
         int longitudBytes;
        jlbfoto.setIcon(icono);
     }
+   Connection con = null;
+    Statement st = null;
+    String encontrado;
    String usuario;
     Conexion conect = new Conexion("gimnasio");
-    Connection con = null;
-    Statement st = null;
+    
     DefaultTableModel modelo;
     Object datosClientes[] = new Object[5];
     String codigo;
@@ -560,7 +562,9 @@ this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btncrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncrearMouseClicked
-       crearCliente(); // TODO add your handling code here:
+       crearCliente(); 
+       new tomarfoto2(this, true, String.valueOf(BuscarMaxCod())).setVisible(true);
+// TODO add your handling code here:
     }//GEN-LAST:event_btncrearMouseClicked
 
     private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
@@ -593,6 +597,26 @@ int fila = tblDatos.getSelectedRow();
              // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
 
+   private int BuscarMaxCod() {
+        Conexion conect = new Conexion("gimnasio");
+        int maximo = 0;
+        try {           
+            String senten = "SELECT MAX(ID) FROM clientes";
+            encontrado = "NO";            
+            con = conect.getConexion();
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery(senten);         
+            rs.next();
+                maximo = rs.getInt("MAX(ID)");
+                encontrado = "SI";         
+            if (encontrado.equals("NO")) {
+                JOptionPane.showMessageDialog(null, "NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
+            }
+            con.close();
+        } catch (HeadlessException | SQLException x) {System.out.println(x);}
+        return maximo;
+    } 
+    
     private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
       seleccionarFoto();        // TODO add your handling code here:
     }//GEN-LAST:event_btnfotoActionPerformed
