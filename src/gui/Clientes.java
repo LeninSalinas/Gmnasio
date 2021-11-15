@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package gui;
 
 import conexion.Conexion;
@@ -650,6 +651,8 @@ int fila = tblDatos.getSelectedRow();
     
 
 =======
+=======
+>>>>>>> parent of f7c7ab7 ()
 package gui;
 
 import conexion.Conexion;
@@ -907,11 +910,19 @@ public class Clientes extends javax.swing.JDialog {
 
             },
             new String [] {
+<<<<<<< HEAD
                 "ID", "Nombre", "Edad", "Genero", "Peso"
             }
         ) {
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
+=======
+                "Nombre", "Edad", "Genero", "Peso"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+>>>>>>> parent of f7c7ab7 ()
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -930,7 +941,10 @@ public class Clientes extends javax.swing.JDialog {
             tblDatos.getColumnModel().getColumn(1).setResizable(false);
             tblDatos.getColumnModel().getColumn(2).setResizable(false);
             tblDatos.getColumnModel().getColumn(3).setResizable(false);
+<<<<<<< HEAD
             tblDatos.getColumnModel().getColumn(4).setResizable(false);
+=======
+>>>>>>> parent of f7c7ab7 ()
         }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -968,7 +982,11 @@ public class Clientes extends javax.swing.JDialog {
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+<<<<<<< HEAD
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                .addContainerGap(0, Short.MAX_VALUE))
+>>>>>>> parent of f7c7ab7 ()
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1043,14 +1061,23 @@ public class Clientes extends javax.swing.JDialog {
                 st = con.createStatement();
                 PreparedStatement ps;
 
+<<<<<<< HEAD
                 String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=? WHERE ID =? AND Estado = 'Activo'";
+=======
+                String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=?,foto=? WHERE ID =? AND Estado = 'Activo'";
+>>>>>>> parent of f7c7ab7 ()
                 ps = conect.getConexion().prepareStatement(sql);
                 ps.setString(1,txtnombre.getText());
                 ps.setString(2, txtedad.getText());
                 ps.setString(3, txtgenero.getText());
                 ps.setString(4, txtpeso.getText());
+<<<<<<< HEAD
                 //ps.setBlob(5, entradaFoto, longitudBytes);
                  ps.setString(5,codigo);
+=======
+                ps.setBlob(5, entradaFoto, longitudBytes);
+                 ps.setString(6,codigo);
+>>>>>>> parent of f7c7ab7 ()
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
                 limpiarTabla();
@@ -1059,7 +1086,43 @@ public class Clientes extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
             } 
     }        
+<<<<<<< HEAD
         
+=======
+        //METODO PARA SELECCIONAR LA FOTO
+     public void seleccionarFoto() {
+        //Nos permite a través de una ventana, seleccioar un archivo
+        JFileChooser seleccionarFoto = new JFileChooser();
+        FileNameExtensionFilter filtro;// seleccionamos el tipo de extensión de la imagen
+        filtro = new FileNameExtensionFilter("JPG, PNG, GIF", "jpg", "png", "gif");
+        seleccionarFoto.setFileFilter(filtro);
+        //colocamos un titulo a la ventana (opcional)
+        seleccionarFoto.setDialogTitle("BUSCAR FOTO");
+        //Establecemos una ruta con la carpeta de las imagenes (opcional)
+        File ruta = new File("C:/foto");
+        seleccionarFoto.setCurrentDirectory(ruta);
+        int estado = seleccionarFoto.showOpenDialog(this);
+        //Si el usuario dio click en botón aceptar
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
+                //seleccionamos la foto
+                entradaFoto = new FileInputStream(seleccionarFoto.getSelectedFile());
+                //tomamos la medida de la imagen en bytes
+                this.longitudBytes = (int) seleccionarFoto.getSelectedFile().length();
+                //tomamos el tamaño de la etiqueta y colocamos la imagen en ella 
+                Image iconoF = ImageIO.read(seleccionarFoto.getSelectedFile()).getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);
+                jlbfoto.setIcon(new ImageIcon(iconoF));
+                //variable bandera que la utilizamoa al momento de actualizar
+                estadoFoto = true;
+
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, ex, "ATENCION!", 0);
+            } catch (IOException exp) {
+                JOptionPane.showMessageDialog(null, exp, "ATENCION!", 0);
+            }
+        }
+     }
+>>>>>>> parent of f7c7ab7 ()
      
         
      private void BuscarFoto(String cod) {
@@ -1080,7 +1143,11 @@ public class Clientes extends javax.swing.JDialog {
                 iconoBD = new ImageIcon(im);
                 imageBD = iconoBD.getImage();
                 nuevaImgModificada = imageBD.getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);//Utilice el algoritmo de escalado de imágenes predeterminado.
+<<<<<<< HEAD
                 nuevaImgModificada = imageBD.getScaledInstance(170, 170, Image.SCALE_SMOOTH);//Elija un algoritmo de escalado de imagen que dé mayor prioridad a la suavidad de la imagen que a la velocidad de escalado.
+=======
+                //nuevaImgModificada = imageBD.getScaledInstance(170, 170, Image.SCALE_SMOOTH);//Elija un algoritmo de escalado de imagen que dé mayor prioridad a la suavidad de la imagen que a la velocidad de escalado.
+>>>>>>> parent of f7c7ab7 ()
                 ImageIcon mostrarFoto = new ImageIcon(nuevaImgModificada);
                 jlbfoto.setIcon(mostrarFoto);
                 encontrado = "SI";
@@ -1089,7 +1156,11 @@ public class Clientes extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "ID DE CLIENTE NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
             }
             con.close();
+<<<<<<< HEAD
         } catch (HeadlessException | IOException | SQLException y) {System.out.println(y);
+=======
+        } catch (HeadlessException | IOException | SQLException y) {
+>>>>>>> parent of f7c7ab7 ()
         }
      
      
@@ -1193,8 +1264,12 @@ this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btncrearMouseClicked
 
     private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
+<<<<<<< HEAD
         actualizarCliente();
         new tomarfoto2(this, true, String.valueOf(codigo)).setVisible(true);
+=======
+        actualizarCliente();// TODO add your handling code here:
+>>>>>>> parent of f7c7ab7 ()
     }//GEN-LAST:event_btnmodificarMouseClicked
 
     private void btnleerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnleerMouseClicked
@@ -1214,6 +1289,7 @@ this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+<<<<<<< HEAD
         try {
          int fila = tblDatos.getSelectedRow();
          codigo = tblDatos.getValueAt(fila, 0).toString();
@@ -1226,6 +1302,14 @@ this.dispose();              // TODO add your handling code here:
         } catch (Exception e) {
         }
         
+=======
+int fila = tblDatos.getSelectedRow();
+        txtnombre.setText(tblDatos.getValueAt(fila, 0).toString());
+        txtedad.setText(tblDatos.getValueAt(fila, 1).toString());
+        txtgenero.setText(tblDatos.getValueAt(fila, 2).toString());
+        txtpeso.setText(tblDatos.getValueAt(fila, 3).toString());
+        BuscarFoto(codigo.trim());
+>>>>>>> parent of f7c7ab7 ()
              // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
 
@@ -1250,10 +1334,14 @@ this.dispose();              // TODO add your handling code here:
     } 
     
     private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
+<<<<<<< HEAD
 if(codigo != null){
 new tomarfoto2(this, true, codigo).setVisible(true); 
 }
             // seleccionarFoto();        // TODO add your handling code here:
+=======
+      seleccionarFoto();        // TODO add your handling code here:
+>>>>>>> parent of f7c7ab7 ()
     }//GEN-LAST:event_btnfotoActionPerformed
  public static void main(String args[]) {
        java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1303,4 +1391,7 @@ new tomarfoto2(this, true, codigo).setVisible(true);
 
     
 
+<<<<<<< HEAD
 >>>>>>> f7c7ab7855affc689f8df4902e743b05856e76ca
+=======
+>>>>>>> parent of f7c7ab7 ()
