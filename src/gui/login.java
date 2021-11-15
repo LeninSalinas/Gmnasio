@@ -37,7 +37,7 @@ public class login extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(null, "Bienvenido " + jtfUser.getText());
                             this.dispose();
-                            //new Principal().setVisible(true);
+                            new Principal(jtfUser.getText()).setVisible(true);
                             encontrado = "SI";
                            
                         } else {

@@ -39,7 +39,7 @@ public class Clientes extends javax.swing.JDialog {
     boolean estadoFoto = false;
    
     
-   public Clientes(java.awt.Frame parent, boolean modal,String user) {
+   public Clientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         int longitudBytes;
@@ -313,7 +313,7 @@ public class Clientes extends javax.swing.JDialog {
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,7 +603,7 @@ int fila = tblDatos.getSelectedRow();
  public static void main(String args[]) {
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Clientes dialog = new Clientes(new javax.swing.JFrame(), true,"user");
+                Clientes dialog = new Clientes(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
