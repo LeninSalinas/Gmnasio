@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 54c92de (mas)
 =======
@@ -18,6 +19,8 @@
 >>>>>>> parent of 54c92de (mas)
 =======
 >>>>>>> parent of 54c92de (mas)
+=======
+>>>>>>> parent of 6ea8f3c (1)
 package gui;
 
 import conexion.Conexion;
@@ -674,6 +677,9 @@ int fila = tblDatos.getSelectedRow();
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 6ea8f3c (1)
 =======
 =======
 >>>>>>> parent of f7c7ab7 ()
@@ -1403,6 +1409,7 @@ new tomarfoto2(this, true, codigo).setVisible(true);
 >>>>>>> f7c7ab7855affc689f8df4902e743b05856e76ca
 =======
 >>>>>>> parent of f7c7ab7 ()
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 54c92de (mas)
 =======
@@ -1415,3 +1422,5 @@ new tomarfoto2(this, true, codigo).setVisible(true);
 >>>>>>> parent of 54c92de (mas)
 =======
 >>>>>>> parent of 54c92de (mas)
+=======
+>>>>>>> parent of 6ea8f3c (1)
