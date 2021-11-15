@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gui;
+
 import conexion.Conexion;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -25,20 +22,25 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
  *
- * @author RAY
+ * @author ARABEY ORELLANA
  */
-public class clientes2 extends javax.swing.JDialog {
-int longitudBytes;
+public class Cliente extends javax.swing.JDialog {
+  int longitudBytes;
     File foto;
     FileInputStream entradaFoto;
     ImageIcon icono = new ImageIcon("src/foto.jpg");
     boolean estadoFoto = false;
-    /**
-     * Creates new form clientes2
-     */
-  public clientes2(java.awt.Frame parent, boolean modal,String user) {
+   
+    
+   public Cliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         int longitudBytes;
@@ -53,6 +55,7 @@ int longitudBytes;
     DefaultTableModel modelo;
     Object datosClientes[] = new Object[5];
     String codigo;
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +67,6 @@ int longitudBytes;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -86,18 +88,16 @@ int longitudBytes;
         tblDatos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 611));
-        setMinimumSize(new java.awt.Dimension(900, 611));
-        getContentPane().setLayout(null);
+        setMaximumSize(new java.awt.Dimension(900, 600));
+        setMinimumSize(new java.awt.Dimension(900, 600));
+        setPreferredSize(new java.awt.Dimension(900, 600));
 
-        jPanel1.setLayout(null);
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setMaximumSize(new java.awt.Dimension(900, 600));
+        jPanel1.setMinimumSize(new java.awt.Dimension(900, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(900, 600));
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel2.setMaximumSize(new java.awt.Dimension(900, 600));
-        jPanel2.setMinimumSize(new java.awt.Dimension(900, 600));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 51));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 51));
 
         jLabel2.setText("Nombre");
 
@@ -124,49 +124,49 @@ int longitudBytes;
         jlbfoto.setText("foto");
         jlbfoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(58, 58, 58)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtedad, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtpeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                         .addComponent(txtgenero, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
                 .addComponent(jlbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtpeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlbfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -274,28 +274,34 @@ int longitudBytes;
             }
         });
         jScrollPane1.setViewportView(tblDatos);
+        if (tblDatos.getColumnModel().getColumnCount() > 0) {
+            tblDatos.getColumnModel().getColumn(0).setResizable(false);
+            tblDatos.getColumnModel().getColumn(1).setResizable(false);
+            tblDatos.getColumnModel().getColumn(2).setResizable(false);
+            tblDatos.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("DATOS DEL CLIENTE");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(336, 336, 336)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btncrear, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -312,15 +318,15 @@ int longitudBytes;
                         .addComponent(btnfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncrear, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,16 +341,20 @@ int longitudBytes;
                 .addContainerGap(96, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 966, 600);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 900, 610);
-
-        pack();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void crearCliente() {
+ private void crearCliente() {
        
         if(txtnombre.getText().isEmpty()||txtedad.getText().isEmpty()||txtgenero.getText().isEmpty()||txtpeso.getText().isEmpty()){
            JOptionPane.showMessageDialog(null, "PORFAVOR ASEGURESE DE QUE TODOS LOS CAMPOS ESTEN LLENOS", "ATENCION!", 1);
@@ -381,14 +391,23 @@ int longitudBytes;
                 st = con.createStatement();
                 PreparedStatement ps;
 
+
                 String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=? WHERE ID =? AND Estado = 'Activo'";
+
+                //String sql = "UPDATE clientes SET Nombre=?, Edad=?,Genero=? ,Peso=?,foto=? WHERE ID =? AND Estado = 'Activo'";
+
                 ps = conect.getConexion().prepareStatement(sql);
                 ps.setString(1,txtnombre.getText());
                 ps.setString(2, txtedad.getText());
                 ps.setString(3, txtgenero.getText());
                 ps.setString(4, txtpeso.getText());
+
                 //ps.setBlob(5, entradaFoto, longitudBytes);
                  ps.setString(5,codigo);
+
+                ps.setBlob(5, entradaFoto, longitudBytes);
+                 ps.setString(6,codigo);
+
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "SU REGISTRO SE A ACTUALIZADO CORRECTAMENTE", "ATENCION!", 1);
                 limpiarTabla();
@@ -397,7 +416,43 @@ int longitudBytes;
                 JOptionPane.showMessageDialog(null, "SU REGISTRO NO SE A PODIDO ACTUALIZAR" + e, "ATENCION!", 0);
             } 
     }        
+
         
+
+        //METODO PARA SELECCIONAR LA FOTO
+     public void seleccionarFoto() {
+        //Nos permite a través de una ventana, seleccioar un archivo
+        JFileChooser seleccionarFoto = new JFileChooser();
+        FileNameExtensionFilter filtro;// seleccionamos el tipo de extensión de la imagen
+        filtro = new FileNameExtensionFilter("JPG, PNG, GIF", "jpg", "png", "gif");
+        seleccionarFoto.setFileFilter(filtro);
+        //colocamos un titulo a la ventana (opcional)
+        seleccionarFoto.setDialogTitle("BUSCAR FOTO");
+        //Establecemos una ruta con la carpeta de las imagenes (opcional)
+        File ruta = new File("C:/foto");
+        seleccionarFoto.setCurrentDirectory(ruta);
+        int estado = seleccionarFoto.showOpenDialog(this);
+        //Si el usuario dio click en botón aceptar
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
+                //seleccionamos la foto
+                entradaFoto = new FileInputStream(seleccionarFoto.getSelectedFile());
+                //tomamos la medida de la imagen en bytes
+                this.longitudBytes = (int) seleccionarFoto.getSelectedFile().length();
+                //tomamos el tamaño de la etiqueta y colocamos la imagen en ella 
+                Image iconoF = ImageIO.read(seleccionarFoto.getSelectedFile()).getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);
+                jlbfoto.setIcon(new ImageIcon(iconoF));
+                //variable bandera que la utilizamoa al momento de actualizar
+                estadoFoto = true;
+
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, ex, "ATENCION!", 0);
+            } catch (IOException exp) {
+                JOptionPane.showMessageDialog(null, exp, "ATENCION!", 0);
+            }
+        }
+     }
+
      
         
      private void BuscarFoto(String cod) {
@@ -418,7 +473,11 @@ int longitudBytes;
                 iconoBD = new ImageIcon(im);
                 imageBD = iconoBD.getImage();
                 nuevaImgModificada = imageBD.getScaledInstance(jlbfoto.getWidth(), jlbfoto.getHeight(), Image.SCALE_DEFAULT);//Utilice el algoritmo de escalado de imágenes predeterminado.
+
                 nuevaImgModificada = imageBD.getScaledInstance(170, 170, Image.SCALE_SMOOTH);//Elija un algoritmo de escalado de imagen que dé mayor prioridad a la suavidad de la imagen que a la velocidad de escalado.
+
+                //nuevaImgModificada = imageBD.getScaledInstance(170, 170, Image.SCALE_SMOOTH);//Elija un algoritmo de escalado de imagen que dé mayor prioridad a la suavidad de la imagen que a la velocidad de escalado.
+
                 ImageIcon mostrarFoto = new ImageIcon(nuevaImgModificada);
                 jlbfoto.setIcon(mostrarFoto);
                 encontrado = "SI";
@@ -427,8 +486,10 @@ int longitudBytes;
                 JOptionPane.showMessageDialog(null, "ID DE CLIENTE NO ENCONTRADO", "ATENCION!", JOptionPane.ERROR_MESSAGE);
             }
             con.close();
+
         } catch (HeadlessException | IOException | SQLException y) {System.out.println(y);
-        }
+
+        } 
      
      
     }
@@ -498,7 +559,6 @@ public void limpiar(){
             JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR EL REGISTRO", "ATENCION!", 0);
         } //To change body of generated methods, choose Tools | Templates.
     }
-    
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
@@ -507,91 +567,81 @@ public void limpiar(){
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpesoActionPerformed
 
-    private void btncrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncrearMouseClicked
-        crearCliente();
-        new tomarfoto2(this, true, String.valueOf(BuscarMaxCod())).setVisible(true);
+    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
+       
         // TODO add your handling code here:
-    }//GEN-LAST:event_btncrearMouseClicked
+    }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
-
+      
     }//GEN-LAST:event_btncrearActionPerformed
 
-    private void btnleerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnleerMouseClicked
-        BuscarCliente(); // TODO add your handling code here:
-    }//GEN-LAST:event_btnleerMouseClicked
-
-    private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
-  
-        actualizarCliente();
-        new tomarfoto2(this, true, String.valueOf(codigo)).setVisible(true);
- 
-        actualizarCliente();// TODO add your handling code here:
-  
-    }//GEN-LAST:event_btnmodificarMouseClicked
-
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-
+       
     }//GEN-LAST:event_btnmodificarActionPerformed
 
+
+    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
+this.dispose();              // TODO add your handling code here:
+    }//GEN-LAST:event_btnsalirActionPerformed
+
+    private void btncrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncrearMouseClicked
+       crearCliente(); 
+       new tomarfoto2(this, true, String.valueOf(BuscarMaxCod())).setVisible(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_btncrearMouseClicked
+
+    private void btnmodificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnmodificarMouseClicked
+
+        actualizarCliente();
+        new tomarfoto2(this, true, String.valueOf(codigo)).setVisible(true);
+
+        actualizarCliente();// TODO add your handling code here:
+
+    }//GEN-LAST:event_btnmodificarMouseClicked
+
+    private void btnleerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnleerMouseClicked
+       BuscarCliente(); // TODO add your handling code here:
+    }//GEN-LAST:event_btnleerMouseClicked
+
+    private void btnlimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlimpiarMouseClicked
+      limpiarTabla();  // TODO add your handling code here:
+    }//GEN-LAST:event_btnlimpiarMouseClicked
+
     private void btneliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarMouseClicked
-        eliminarCliente();// TODO add your handling code here:
+       eliminarCliente();// TODO add your handling code here:
     }//GEN-LAST:event_btneliminarMouseClicked
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btneliminarActionPerformed
 
-    private void btnlimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlimpiarMouseClicked
-        limpiarTabla();  // TODO add your handling code here:
-    }//GEN-LAST:event_btnlimpiarMouseClicked
-
-    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlimpiarActionPerformed
-
-    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        this.dispose();              // TODO add your handling code here:
-    }//GEN-LAST:event_btnsalirActionPerformed
-
-    private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
-     
-        if(codigo != null){
-            new tomarfoto2(this, true, codigo).setVisible(true);
-        }
-        // seleccionarFoto();        // TODO add your handling code here:
-
-        seleccionarFoto();        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnfotoActionPerformed
-
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
-   
-        try {
-            int fila = tblDatos.getSelectedRow();
-            codigo = tblDatos.getValueAt(fila, 0).toString();
-            txtnombre.setText(tblDatos.getValueAt(fila, 1).toString());
-            txtedad.setText(tblDatos.getValueAt(fila, 2).toString());
-            txtgenero.setText(tblDatos.getValueAt(fila, 3).toString());
-            txtpeso.setText(tblDatos.getValueAt(fila, 4).toString());
 
-            BuscarFoto(codigo.trim());
+        try {
+         int fila = tblDatos.getSelectedRow();
+         codigo = tblDatos.getValueAt(fila, 0).toString();
+        txtnombre.setText(tblDatos.getValueAt(fila, 1).toString());
+        txtedad.setText(tblDatos.getValueAt(fila, 2).toString());
+        txtgenero.setText(tblDatos.getValueAt(fila, 3).toString());
+        txtpeso.setText(tblDatos.getValueAt(fila, 4).toString());
+        
+       BuscarFoto(codigo.trim());   
         } catch (Exception e) {
         }
+        
 
-
-        int fila = tblDatos.getSelectedRow();
+int fila = tblDatos.getSelectedRow();
         txtnombre.setText(tblDatos.getValueAt(fila, 0).toString());
         txtedad.setText(tblDatos.getValueAt(fila, 1).toString());
         txtgenero.setText(tblDatos.getValueAt(fila, 2).toString());
         txtpeso.setText(tblDatos.getValueAt(fila, 3).toString());
         BuscarFoto(codigo.trim());
 
-        // TODO add your handling code here:
+             // TODO add your handling code here:
     }//GEN-LAST:event_tblDatosMouseClicked
 
-       private int BuscarMaxCod() {
+   private int BuscarMaxCod() {
         Conexion conect = new Conexion("gimnasio");
         int maximo = 0;
         try {           
@@ -612,15 +662,17 @@ public void limpiar(){
     } 
     
     private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
+
 if(codigo != null){
 new tomarfoto2(this, true, codigo).setVisible(true); 
 }
-            // seleccionarFoto();        // TODO add your handling code here:
+            
+
     }//GEN-LAST:event_btnfotoActionPerformed
  public static void main(String args[]) {
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Clientes dialog = new Clientes(new javax.swing.JFrame(), true,"user");
+                Cliente dialog = new Cliente(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -631,7 +683,7 @@ new tomarfoto2(this, true, codigo).setVisible(true);
             }
         });
  }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncrear;
     private javax.swing.JButton btneliminar;
@@ -648,7 +700,6 @@ new tomarfoto2(this, true, codigo).setVisible(true);
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlbfoto;
     private javax.swing.JTable tblDatos;
@@ -657,4 +708,7 @@ new tomarfoto2(this, true, codigo).setVisible(true);
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtpeso;
     // End of variables declaration//GEN-END:variables
+
+   
+
 }

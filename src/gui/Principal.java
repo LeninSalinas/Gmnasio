@@ -138,7 +138,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botSalirActionPerformed
 
     private void botClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botClientesActionPerformed
-        new Clientes(this,true).setVisible(true);
+        new Cliente(this,true).setVisible(true);
     }//GEN-LAST:event_botClientesActionPerformed
 
     private void botMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMembresiasActionPerformed
